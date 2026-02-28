@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İbrahim Ersoran | Fitness Eğitmeni</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container announcement-inner">
+            <span><strong>Yaza hazır ol:</strong> İndirimli kontenjana katıl!</span>
+            <div class="countdown" id="announcement-countdown">
+                <div class="countdown-item"><span class="countdown-num" id="days">00</span> Gün</div>
+                <div class="countdown-item"><span class="countdown-num" id="hours">00</span> Saat</div>
+                <div class="countdown-item"><span class="countdown-num" id="minutes">00</span> Dk</div>
+                <div class="countdown-item"><span class="countdown-num" id="seconds">00</span> Sn</div>
+            </div>
+            <a href="#paketler" class="btn-small">Kayıt Ol</a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">İbrahim <span>Ersoran</span></a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Menüyü aç">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#paketler">Paketler</a></li>
+                <li><a href="#uygulama">Mobil Uygulama</a></li>
+                <li><a href="#degisimler">Değişimler</a></li>
+                <li><a href="#goruntulu">Görüntülü Görüşme</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#hakkimda">Hakkımda</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <p class="hero-subtitle">Sana Uygun Paketi Seç</p>
+                <h1>Uzaktan Spor Eğitimi <span class="gradient-text">Paketleri</span></h1>
+                <p class="hero-desc">Kişiye özel hazırlanmış antrenman ve beslenme programlarıyla hedeflerinize vakit kaybetmeden ulaşın</p>
+                <div class="hero-buttons">
+                    <a href="#paketler" class="btn btn-primary">Paketleri İncele</a>
+                    <a href="#degisimler" class="btn btn-outline">Değişimleri Gör</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-num">500+</span>
+                        <span class="stat-label">Mutlu Öğrenci</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">5+</span>
+                        <span class="stat-label">Yıl Deneyim</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">%95</span>
+                        <span class="stat-label">Memnuniyet</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/trainer.png" alt="İbrahim Ersoran - Fitness Eğitmeni" class="hero-trainer-img">
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C360,120 720,0 1440,60 L1440,120 L0,120 Z" fill="var(--bg-primary)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="packages" id="paketler">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Paketler</span>
+                <h2>Sana Uygun Paketi Seç</h2>
+                <p>Kişiye özel hazırlanmış antrenman ve beslenme programlarıyla hedeflerinize vakit kaybetmeden ulaşın</p>
+            </div>
+
+            <div class="packages-grid">
+                <!-- 6 Aylık -->
+                <div class="package-card featured">
+                    <div class="package-badge">Popüler</div>
+                    <div class="package-discount">%40 İndirim</div>
+                    <h3>6 Aylık Full Paket</h3>
+                    <div class="package-price">
+                        <span class="price-old">6600 ₺</span>
+                        <span class="price-new">3950 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-gift"></i> +2 AY HEDİYE</li>
+                        <li><i class="fas fa-check"></i> Kişiye özel antrenman programı</li>
+                        <li><i class="fas fa-check"></i> Kişiye özel beslenme programı</li>
+                        <li><i class="fas fa-check"></i> Kardiyo Planlaması</li>
+                        <li><i class="fas fa-check"></i> Supplement Kombinasyonu</li>
+                        <li><i class="fas fa-check"></i> Benzersiz Mobil Uygulama</li>
+                        <li><i class="fas fa-check"></i> Sınırsız iletişim, soru-cevap</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-primary btn-full">Hemen Başla</a>
+                </div>
+
+                <!-- 3 Aylık -->
+                <div class="package-card">
+                    <div class="package-discount">%30 İndirim</div>
+                    <h3>3 Aylık Full Paket</h3>
+                    <div class="package-price">
+                        <span class="price-old">4200 ₺</span>
+                        <span class="price-new">2950 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-gift"></i> +1 AY HEDİYE</li>
+                        <li><i class="fas fa-check"></i> Kişiye özel antrenman programı</li>
+                        <li><i class="fas fa-check"></i> Kişiye özel beslenme programı</li>
+                        <li><i class="fas fa-check"></i> Kardiyo Planlaması</li>
+                        <li><i class="fas fa-check"></i> Supplement Kombinasyonu</li>
+                        <li><i class="fas fa-check"></i> Benzersiz Mobil Uygulama</li>
+                        <li><i class="fas fa-check"></i> Sınırsız iletişim, soru-cevap</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-outline btn-full">Hemen Başla</a>
+                </div>
+
+                <!-- 1 Yıllık -->
+                <div class="package-card">
+                    <div class="package-discount">%50 İndirim</div>
+                    <h3>1 Yıllık Full Paket</h3>
+                    <div class="package-price">
+                        <span class="price-old">11200 ₺</span>
+                        <span class="price-new">5600 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-gift"></i> +3 AY HEDİYE</li>
+                        <li><i class="fas fa-check"></i> Kişiye özel antrenman programı</li>
+                        <li><i class="fas fa-check"></i> Kişiye özel beslenme programı</li>
+                        <li><i class="fas fa-check"></i> Kardiyo Planlaması</li>
+                        <li><i class="fas fa-check"></i> Supplement Kombinasyonu</li>
+                        <li><i class="fas fa-check"></i> Benzersiz Mobil Uygulama</li>
+                        <li><i class="fas fa-check"></i> Sınırsız iletişim, soru-cevap</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-outline btn-full">Hemen Başla</a>
+                </div>
+
+                <!-- 6 Haftalık -->
+                <div class="package-card">
+                    <h3>6 Haftalık Full Paket</h3>
+                    <div class="package-price">
+                        <span class="price-new">2550 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Kişiye özel antrenman programı</li>
+                        <li><i class="fas fa-check"></i> Kişiye özel beslenme programı</li>
+                        <li><i class="fas fa-check"></i> Kardiyo Planlaması</li>
+                        <li><i class="fas fa-check"></i> Supplement Kombinasyonu</li>
+                        <li><i class="fas fa-check"></i> Benzersiz Mobil Uygulama</li>
+                        <li><i class="fas fa-check"></i> Sınırsız iletişim, soru-cevap</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-outline btn-full">Hemen Başla</a>
+                </div>
+
+                <!-- Antrenman -->
+                <div class="package-card">
+                    <h3>Antrenman Programı</h3>
+                    <div class="package-price">
+                        <span class="price-new">1950 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Kişiye özel antrenman programı</li>
+                        <li><i class="fas fa-check"></i> Benzersiz Mobil Uygulama</li>
+                        <li><i class="fas fa-check"></i> Sınırsız iletişim, soru-cevap</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-outline btn-full">Hemen Başla</a>
+                </div>
+
+                <!-- Beslenme -->
+                <div class="package-card">
+                    <h3>Beslenme Programı</h3>
+                    <div class="package-price">
+                        <span class="price-new">1950 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Kişiye özel beslenme programı</li>
+                        <li><i class="fas fa-check"></i> Supplement Kombinasyonu</li>
+                        <li><i class="fas fa-check"></i> Benzersiz Mobil Uygulama</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-outline btn-full">Hemen Başla</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Package Details Section -->
+    <section class="package-details">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Detaylar</span>
+                <h2>Paket İçerikleri</h2>
+            </div>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-dumbbell"></i></div>
+                    <h4>Kişiye Özel Antrenman Programı</h4>
+                    <p>Hedeflerinize ve imkanlarınıza özel olarak bilimin ışığında hazırlanan nokta atışı antrenman programı. Ev veya spor salonu koşullarına göre uyarlanır.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-utensils"></i></div>
+                    <h4>Kişiye Özel Beslenme Programı</h4>
+                    <p>Bütçenize, günlük temponuza ve hedeflerinize göre uzman diyetisyenler tarafından hazırlanan uygulanabilir beslenme programı.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h4>Kardiyo Planlaması</h4>
+                    <p>Maksimum yağ yakımı ve kas kazanmaya yönelik, güncel kondisyon seviyenize uygun kardiyo programları.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-capsules"></i></div>
+                    <h4>Supplement Kombinasyonu</h4>
+                    <p>Hedefleriniz, programlarınız ve bütçenize uygun şekilde supplementlerin seçilmesi ve planlanması.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h4>Benzersiz Mobil Uygulama</h4>
+                    <p>Antrenman ve beslenme programlarının takvimden gün gün takibi, videolu hareket gösterimi, makro & kalori dökümleri.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-comments"></i></div>
+                    <h4>Sınırsız İletişim</h4>
+                    <p>Soru-cevap bölümünden sorularınızı istediğiniz zaman iletebilirsiniz. Sorularınız mesai saatleri içerisinde aynı gün cevaplanır.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Call Packages -->
+    <section class="video-call" id="goruntulu">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Yeni</span>
+                <h2>Görüntülü Görüşme Paketleri</h2>
+                <p>İbrahim Ersoran ile birebir görüntülü görüşme imkanı</p>
+            </div>
+            <div class="video-call-grid">
+                <div class="package-card featured">
+                    <div class="package-badge">Yeni</div>
+                    <div class="package-discount">%25 İndirim</div>
+                    <h3>4 Seans Görüntülü Görüşme</h3>
+                    <div class="package-price">
+                        <span class="price-old">7990 ₺</span>
+                        <span class="price-new">5990 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-video"></i> İbrahim Ersoran ile Görüntülü Görüşme</li>
+                        <li><i class="fas fa-check"></i> Canlı İletişim, Görüntülü Takip</li>
+                        <li><i class="fas fa-check"></i> Bire bir vücut gelişimi takibi</li>
+                        <li><i class="fas fa-check"></i> Diyetisyen ile görüntülü görüşme</li>
+                        <li><i class="fas fa-check"></i> Supplement Planlaması</li>
+                        <li><i class="fas fa-check"></i> Pratik Tarifler</li>
+                        <li><i class="fas fa-check"></i> 7/24 soru-cevap hakkı</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-primary btn-full">Hemen Başla</a>
+                </div>
+                <div class="package-card">
+                    <div class="package-badge">Yeni</div>
+                    <div class="package-discount">%29 İndirim</div>
+                    <h3>İbrahim Ersoran'la Görüntülü Görüşme (1 Seans)</h3>
+                    <div class="package-price">
+                        <span class="price-old">3490 ₺</span>
+                        <span class="price-new">2490 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-video"></i> İbrahim Ersoran ile Görüntülü Görüşme</li>
+                        <li><i class="fas fa-check"></i> Canlı İletişim, Görüntülü Takip</li>
+                        <li><i class="fas fa-check"></i> Bire bir vücut gelişimi takibi</li>
+                        <li><i class="fas fa-check"></i> Supplement Planlaması</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-outline btn-full">Hemen Başla</a>
+                </div>
+                <div class="package-card">
+                    <div class="package-badge">Yeni</div>
+                    <div class="package-discount">%20 İndirim</div>
+                    <h3>Diyetisyen Görüşmesi (1 Seans)</h3>
+                    <div class="package-price">
+                        <span class="price-old">2490 ₺</span>
+                        <span class="price-new">1990 ₺</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-video"></i> Diyetisyen ile görüntülü görüşme</li>
+                        <li><i class="fas fa-check"></i> Canlı İletişim, Görüntülü Takip</li>
+                        <li><i class="fas fa-check"></i> Bire bir vücut gelişimi takibi</li>
+                        <li><i class="fas fa-check"></i> Supplement Planlaması</li>
+                        <li><i class="fas fa-check"></i> Pratik Tarifler</li>
+                    </ul>
+                    <a href="#iletisim" class="btn btn-outline btn-full">Hemen Başla</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Section -->
+    <section class="mobile-app" id="uygulama">
+        <div class="container">
+            <div class="app-content">
+                <div class="app-text">
+                    <span class="section-tag">Mobil Uygulama</span>
+                    <h2>Benzersiz Mobil Uygulama</h2>
+                    <p class="app-subtitle">Türkiye'nin En Kapsamlı Fitness Uygulaması</p>
+                    <ul class="app-features">
+                        <li><i class="fas fa-calendar-check"></i> Antrenman ve beslenme takibi takvimden gün gün</li>
+                        <li><i class="fas fa-play-circle"></i> Hareketlerin sesli ve videolu gösterimi</li>
+                        <li><i class="fas fa-bell"></i> Fotoğraflı bildirim sistemiyle öğün takibi</li>
+                        <li><i class="fas fa-chart-bar"></i> Haftalık başarı istatistikleri</li>
+                        <li><i class="fas fa-question-circle"></i> 7/24 soru-cevap bölümü</li>
+                        <li><i class="fas fa-shopping-cart"></i> Haftalık alışveriş listesi</li>
+                        <li><i class="fas fa-film"></i> 700+ videolu egzersiz arşivi</li>
+                        <li><i class="fas fa-calculator"></i> 7 farklı fitness hesaplayıcı</li>
+                    </ul>
+                    <div class="app-buttons">
+                        <a href="#" class="store-btn">
+                            <i class="fab fa-google-play"></i>
+                            <div>
+                                <small>İndir</small>
+                                <strong>Google Play</strong>
+                            </div>
+                        </a>
+                        <a href="#" class="store-btn">
+                            <i class="fab fa-apple"></i>
+                            <div>
+                                <small>İndir</small>
+                                <strong>App Store</strong>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="app-mockup">
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>IE Fitness</span>
+                            <p>Uygulama Önizleme</p>
+                        </div>
+                    </div>
+                    <div class="phone-frame phone-back">
+                        <div class="phone-screen">
+                            <i class="fas fa-chart-line"></i>
+                            <span>İstatistikler</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformations Section -->
+    <section class="transformations" id="degisimler">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Değişimler</span>
+                <h2>Öğrenci Değişimleri</h2>
+                <p>İbrahim Ersoran ile başarı hikayeleri</p>
+            </div>
+            <div class="transformations-grid">
+                <div class="transform-card">
+                    <div class="transform-images">
+                        <div class="transform-before">
+                            <span class="transform-label">Öncesi</span>
+                            <div class="transform-placeholder"><i class="fas fa-user"></i></div>
+                        </div>
+                        <div class="transform-after">
+                            <span class="transform-label">Sonrası</span>
+                            <div class="transform-placeholder after"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="transform-info">
+                        <span class="transform-package">6 Aylık Full Paket</span>
+                    </div>
+                </div>
+                <div class="transform-card">
+                    <div class="transform-images">
+                        <div class="transform-before">
+                            <span class="transform-label">Öncesi</span>
+                            <div class="transform-placeholder"><i class="fas fa-user"></i></div>
+                        </div>
+                        <div class="transform-after">
+                            <span class="transform-label">Sonrası</span>
+                            <div class="transform-placeholder after"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="transform-info">
+                        <span class="transform-package">3 Aylık Full Paket</span>
+                    </div>
+                </div>
+                <div class="transform-card">
+                    <div class="transform-images">
+                        <div class="transform-before">
+                            <span class="transform-label">Öncesi</span>
+                            <div class="transform-placeholder"><i class="fas fa-user"></i></div>
+                        </div>
+                        <div class="transform-after">
+                            <span class="transform-label">Sonrası</span>
+                            <div class="transform-placeholder after"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="transform-info">
+                        <span class="transform-package">1 Yıllık Full Paket</span>
+                    </div>
+                </div>
+                <div class="transform-card">
+                    <div class="transform-images">
+                        <div class="transform-before">
+                            <span class="transform-label">Öncesi</span>
+                            <div class="transform-placeholder"><i class="fas fa-user"></i></div>
+                        </div>
+                        <div class="transform-after">
+                            <span class="transform-label">Sonrası</span>
+                            <div class="transform-placeholder after"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="transform-info">
+                        <span class="transform-package">6 Aylık Full Paket</span>
+                    </div>
+                </div>
+                <div class="transform-card">
+                    <div class="transform-images">
+                        <div class="transform-before">
+                            <span class="transform-label">Öncesi</span>
+                            <div class="transform-placeholder"><i class="fas fa-user"></i></div>
+                        </div>
+                        <div class="transform-after">
+                            <span class="transform-label">Sonrası</span>
+                            <div class="transform-placeholder after"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="transform-info">
+                        <span class="transform-package">3 Aylık Full Paket</span>
+                    </div>
+                </div>
+                <div class="transform-card">
+                    <div class="transform-images">
+                        <div class="transform-before">
+                            <span class="transform-label">Öncesi</span>
+                            <div class="transform-placeholder"><i class="fas fa-user"></i></div>
+                        </div>
+                        <div class="transform-after">
+                            <span class="transform-label">Sonrası</span>
+                            <div class="transform-placeholder after"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="transform-info">
+                        <span class="transform-package">6 Aylık Full Paket</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="#" class="btn btn-outline">Tümünü Göster</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Blog</span>
+                <h2>Son Yazılar</h2>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-capsules"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date"><i class="far fa-calendar"></i> 25 Şubat 2026</span>
+                        <h4>Ramazanda Supplement Kullanımı Nasıl Olmalı?</h4>
+                        <p>Ramazan ayının başlamasıyla birlikte spor yapanların aklında tek bir soru vardır: "Aylardır emek verdiğim kaslarım eriyecek mi?"</p>
+                        <a href="#" class="blog-link">Yazıyı Oku <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date"><i class="far fa-calendar"></i> 23 Şubat 2026</span>
+                        <h4>Sahurda Ne Yenir? Gün Boyu Tok Kalmanızı Sağlayacak 5 Besin</h4>
+                        <p>Ramazan ayında sahur öğünü, gün boyu tokluk ve enerji seviyesini belirleyen en önemli öğündür.</p>
+                        <a href="#" class="blog-link">Yazıyı Oku <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-fire-alt"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date"><i class="far fa-calendar"></i> 20 Şubat 2026</span>
+                        <h4>Ramazanda Kas Kaybetmeden Nasıl Yağ Yakılır?</h4>
+                        <p>Spor yapan kitlenin en büyük korkusu kas kaybı olsa da, büyük bir kesim Ramazan'ı yağ yakma fırsatı olarak görür.</p>
+                        <a href="#" class="blog-link">Yazıyı Oku <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date"><i class="far fa-calendar"></i> 17 Şubat 2026</span>
+                        <h4>Yağ Yakmak İçin Spor Ne Zaman Yapılmalı?</h4>
+                        <p>Fitness ile ilgilenenlerin aklında en çok dönen sorulardan biri: yağ yakmak için en ideal zaman nedir?</p>
+                        <a href="#" class="blog-link">Yazıyı Oku <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+            <div class="text-center mt-3">
+                <a href="#" class="btn btn-outline">Tüm Yazıları Gör</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculators Section -->
+    <section class="calculators" id="hesaplayicilar">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Araçlar</span>
+                <h2>Hesaplayıcılar</h2>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-card">
+                    <i class="fas fa-fire"></i>
+                    <span>Günlük Kalori</span>
+                </div>
+                <div class="calc-card">
+                    <i class="fas fa-percentage"></i>
+                    <span>Vücut Yağ Oranı</span>
+                </div>
+                <div class="calc-card">
+                    <i class="fas fa-bolt"></i>
+                    <span>Kalori Yakımı</span>
+                </div>
+                <div class="calc-card">
+                    <i class="fas fa-weight"></i>
+                    <span>İdeal Kilo</span>
+                </div>
+                <div class="calc-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>1RM</span>
+                </div>
+                <div class="calc-card">
+                    <i class="fas fa-drumstick-bite"></i>
+                    <span>Protein İhtiyacı</span>
+                </div>
+                <div class="calc-card">
+                    <i class="fas fa-heart"></i>
+                    <span>Kalp Atım Hızı</span>
+                </div>
+                <div class="calc-card">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Bazal Metabolizma</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="hakkimda">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="assets/trainer.png" alt="İbrahim Ersoran - Fitness Eğitmeni" class="about-trainer-img">
+                </div>
+                <div class="about-text">
+                    <span class="section-tag">Hakkımda</span>
+                    <h2>İbrahim Ersoran</h2>
+                    <p>TVGFBF II. Kademe Antrenör ve EQF Level 4 Personal Trainer olarak, bilimsel temellere dayanan kişiye özel antrenman ve beslenme programlarıyla yüzlerce öğrencinin hedeflerine ulaşmasına yardımcı oldum.</p>
+                    <p>Corrective Exercise Specialist, FNS, Functional Training Specialist ve Exercise Based Hormon and Neurotransmitter Optimization alanlarındaki uzmanlığımla her öğrencime bireysel yaklaşarak en verimli sonuçları elde etmenizi sağlıyorum.</p>
+                    <div class="about-badges">
+                        <div class="badge-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>TVGFBF II. Kademe</span>
+                        </div>
+                        <div class="badge-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>EQF Level 4 PT</span>
+                        </div>
+                        <div class="badge-item">
+                            <i class="fas fa-award"></i>
+                            <span>Corrective Exercise</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Takip Et</span>
+                <h2>Sosyal Medya</h2>
+            </div>
+            <div class="social-grid">
+                <a href="#" class="social-card instagram">
+                    <i class="fab fa-instagram"></i>
+                    <strong>Instagram</strong>
+                    <span>Takip Et</span>
+                </a>
+                <a href="#" class="social-card youtube">
+                    <i class="fab fa-youtube"></i>
+                    <strong>YouTube</strong>
+                    <span>Abone Ol</span>
+                </a>
+                <a href="#" class="social-card facebook">
+                    <i class="fab fa-facebook"></i>
+                    <strong>Facebook</strong>
+                    <span>Takip Et</span>
+                </a>
+                <a href="#" class="social-card tiktok">
+                    <i class="fab fa-tiktok"></i>
+                    <strong>TikTok</strong>
+                    <span>Takip Et</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="videos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Video</span>
+                <h2>Son Videolar</h2>
+            </div>
+            <div class="videos-grid">
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-date">10 Nisan 2023</span>
+                        <h4>A'DAN Z'YE KREATİN REHBERİ</h4>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-date">9 Nisan 2023</span>
+                        <h4>OMUZDA NEDEN SADECE 2 HAREKET YAPIYORUM</h4>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-date">7 Nisan 2023</span>
+                        <h4>MAKSİMUM YAĞ YAKIMI REHBERİ</h4>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-date">6 Nisan 2023</span>
+                        <h4>ÇENE KASI GELİŞTİRME</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="#" class="btn btn-outline">Tümünü Göster</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="sss">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">S.S.S</span>
+                <h2>Sıkça Sorulan Sorular</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Programlar nasıl hazırlanıyor?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kayıt sonrası detaylı bir form dolduruyorsunuz. Bu formda hedefleriniz, sağlık durumunuz, günlük rutininiz ve beslenme alışkanlıklarınız gibi bilgiler yer alıyor. Bu bilgiler doğrultusunda size özel programlar hazırlanıyor.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Evde antrenman yapabilir miyim?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Evet, antrenman programınız ev veya spor salonu koşullarına göre özel olarak hazırlanır. Sahip olduğunuz ekipmanlar göz önünde bulundurulur.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Program süresince değişiklik yapılır mı?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Evet, gelişiminize göre programlarınız düzenli olarak güncellenir. Ara değerlendirme formlarıyla ilerlemeniz takip edilir ve gerekli düzenlemeler yapılır.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Ödeme nasıl yapılır?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kredi kartı, banka kartı veya havale/EFT ile ödeme yapabilirsiniz. Taksit seçenekleri de mevcuttur.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Sağlık sorunlarım var, katılabilir miyim?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Evet, ekibimizde fizyoterapist de bulunmaktadır. Bel fıtığı, skolyoz, lordoz gibi özel sağlık durumlarınıza uygun şekilde program hazırlanır.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="iletisim">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">İletişim</span>
+                <h2>Bizimle İletişime Geçin</h2>
+                <p>Sorularınız veya paket satın alma talepleriniz için bize ulaşın</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp</strong>
+                            <p>+90 537 522 94 87</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Telefon</strong>
+                            <p>+90 537 522 94 87</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-instagram"></i>
+                        <div>
+                            <strong>Instagram</strong>
+                            <p>@ibrahimersoran</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-row">
+                        <input type="text" placeholder="Adınız Soyadınız" required>
+                        <input type="email" placeholder="E-posta Adresiniz" required>
+                    </div>
+                    <input type="tel" placeholder="Telefon Numaranız">
+                    <select>
+                        <option value="">İlgilendiğiniz Paket</option>
+                        <option>6 Aylık Full Paket</option>
+                        <option>3 Aylık Full Paket</option>
+                        <option>1 Yıllık Full Paket</option>
+                        <option>6 Haftalık Full Paket</option>
+                        <option>Antrenman Programı</option>
+                        <option>Beslenme Programı</option>
+                        <option>Görüntülü Görüşme</option>
+                    </select>
+                    <textarea rows="4" placeholder="Mesajınız"></textarea>
+                    <button type="submit" class="btn btn-primary btn-full">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">İbrahim <span>Ersoran</span></a>
+                    <p>Kişiye özel antrenman ve beslenme programlarıyla hedeflerinize ulaşın.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>İbrahim Ersoran</h4>
+                    <p class="footer-phone"><i class="fas fa-phone"></i> +90 537 522 94 87</p>
+                    <ul>
+                        <li><a href="#paketler">Paketler</a></li>
+                        <li><a href="#uygulama">Mobil Uygulama</a></li>
+                        <li><a href="#degisimler">Değişimler</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#hakkimda">Hakkımda</a></li>
+                        <li><a href="#iletisim">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Önemli Bilgiler</h4>
+                    <ul>
+                        <li><a href="#">Çerez Aydınlatma Metni</a></li>
+                        <li><a href="#">Mesafeli Satış Sözleşmesi</a></li>
+                        <li><a href="#">KVKK Aydınlatma Metni</a></li>
+                        <li><a href="#">Veri Sahibi Bilgi Talep Formu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Hemen İndirin</h4>
+                    <div class="footer-app-buttons">
+                        <a href="#" class="store-btn small">
+                            <i class="fab fa-google-play"></i>
+                            <div><small>İndir</small><strong>Google Play</strong></div>
+                        </a>
+                        <a href="#" class="store-btn small">
+                            <i class="fab fa-apple"></i>
+                            <div><small>İndir</small><strong>App Store</strong></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 İbrahim Ersoran. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/905375229487" target="_blank" class="whatsapp-float" title="WhatsApp ile iletişime geç">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" title="Yukarı çık">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
