@@ -1,0 +1,107 @@
+.footer {
+    background: #080808;
+    padding: 64px 0 0;
+    border-top: 1px solid var(--border);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.footer-brand .logo {
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.footer-brand p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.footer-social {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-social a {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.footer-links h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    padding-left: 4px;
+}
+
+.footer-phone {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-phone i {
+    color: var(--primary);
+    font-size: 0.85rem;
+}
+
+.footer-app-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+}

@@ -1,0 +1,49 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.section-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(139, 195, 74, 0.08);
+    border: 1px solid rgba(139, 195, 74, 0.12);
+    border-radius: 4px;
+    font-size: 0.72rem;
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.section-header p {
+    color: var(--text-secondary);
+    font-size: 1.02rem;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.gradient-text {
+    color: var(--primary);
+}

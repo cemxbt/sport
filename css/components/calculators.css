@@ -1,0 +1,50 @@
+.calculators {
+    background: var(--bg-secondary);
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.calc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.calc-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow);
+    background: var(--bg-card-hover);
+}
+
+.calc-card i {
+    font-size: 1.8rem;
+    color: var(--primary);
+    opacity: 0.8;
+}
+
+.calc-card:hover i {
+    opacity: 1;
+}
+
+.calc-card span {
+    font-weight: 600;
+    font-size: 0.86rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.calc-card:hover span {
+    color: var(--text-primary);
+}

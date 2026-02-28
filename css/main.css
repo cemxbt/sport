@@ -1,0 +1,26 @@
+@import url('base/variables.css');
+@import url('base/reset.css');
+@import url('base/typography.css');
+
+@import url('utilities/buttons.css');
+@import url('utilities/animations.css');
+
+@import url('components/announcement.css');
+@import url('components/navbar.css');
+@import url('components/hero.css');
+@import url('components/packages.css');
+@import url('components/details.css');
+@import url('components/video-call.css');
+@import url('components/app.css');
+@import url('components/transformations.css');
+@import url('components/blog.css');
+@import url('components/calculators.css');
+@import url('components/about.css');
+@import url('components/social.css');
+@import url('components/videos.css');
+@import url('components/faq.css');
+@import url('components/contact.css');
+@import url('components/footer.css');
+@import url('components/floating.css');
+
+@import url('responsive.css');

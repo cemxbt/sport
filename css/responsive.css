@@ -1,0 +1,231 @@
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-image { display: none; }
+
+    .hero-desc {
+        margin: 0 auto 40px;
+    }
+
+    .hero-buttons { justify-content: center; }
+
+    .hero-stats { justify-content: center; }
+
+    .hero h1 { font-size: 2.8rem; }
+
+    .packages-grid,
+    .video-call-grid,
+    .details-grid,
+    .transformations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .app-content,
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .app-text { text-align: center; }
+
+    .app-features li { justify-content: center; }
+
+    .app-buttons { justify-content: center; }
+
+    .app-mockup { height: 420px; }
+
+    .about-trainer-img {
+        height: 400px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .about-text { text-align: center; }
+
+    .about-badges { justify-content: center; }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-item:not(:last-child)::after {
+        right: -24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container { padding: 0 20px; }
+
+    .announcement-inner {
+        font-size: 0.74rem;
+        gap: 10px;
+    }
+
+    .countdown { gap: 6px; }
+
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(24px);
+        flex-direction: column;
+        padding: 100px 32px 40px;
+        gap: 4px;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
+        align-items: flex-start;
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 14px 16px;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+        border-radius: 0;
+    }
+
+    .hero { min-height: auto; padding: 60px 0 80px; }
+
+    .hero h1 { font-size: 2.2rem; }
+
+    .section-header h2 { font-size: 2rem; }
+
+    section { padding: 80px 0; }
+
+    .packages-grid,
+    .video-call-grid,
+    .details-grid,
+    .transformations-grid,
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calc-grid,
+    .social-grid,
+    .videos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blog-card {
+        flex-direction: column;
+    }
+
+    .blog-image {
+        width: 100%;
+        min-height: 140px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .hero-stats {
+        gap: 32px;
+        flex-wrap: wrap;
+    }
+
+    .stat-item:not(:last-child)::after {
+        right: -16px;
+        height: 30px;
+    }
+
+    .about-badges {
+        gap: 10px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .app-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .app-mockup {
+        height: 380px;
+    }
+
+    .about-trainer-img {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 1.9rem; }
+
+    section { padding: 60px 0; }
+
+    .section-header h2 { font-size: 1.7rem; }
+
+    .section-header { margin-bottom: 40px; }
+
+    .calc-grid,
+    .social-grid,
+    .videos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .announcement-bar .btn-small {
+        display: none;
+    }
+
+    .hero-stats {
+        gap: 20px;
+    }
+
+    .stat-item:not(:last-child)::after {
+        display: none;
+    }
+
+    .stat-num {
+        font-size: 1.8rem;
+    }
+
+    .package-card {
+        padding: 24px 20px;
+    }
+
+    .about-trainer-img {
+        height: 300px;
+    }
+
+    .contact-item {
+        padding: 16px;
+    }
+
+    .badge-item {
+        width: 100%;
+        justify-content: center;
+    }
+}
