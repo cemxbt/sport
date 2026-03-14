@@ -4,7 +4,7 @@
 
 .social-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
 }
 
@@ -47,3 +47,5 @@
 .social-card.facebook i { color: #1877f2; }
 .social-card.tiktok:hover { border-color: #fff; }
 .social-card.tiktok i { color: #fff; }
+.social-card.linkedin:hover { border-color: #0a66c2; }
+.social-card.linkedin i { color: #0a66c2; }

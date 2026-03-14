@@ -1,0 +1,108 @@
+{
+  "seo": {
+    "title": "İbrahim Ersoran | Fitness Eğitmeni",
+    "description": "TVGFBF III. Kademe Antrenör İbrahim Ersoran ile kişiye özel online antrenman ve beslenme programları. Uzaktan spor eğitimi paketleri.",
+    "keywords": "fitness eğitmeni, online antrenman, beslenme programı, kişiye özel antrenman, İbrahim Ersoran",
+    "canonical": "",
+    "ogTitle": "",
+    "ogDescription": "",
+    "ogImage": "",
+    "robots": "index, follow",
+    "gaId": "",
+    "googleVerification": "",
+    "schemaType": "ProfessionalService",
+    "schemaName": "İbrahim Ersoran Fitness",
+    "schemaAddress": "İstanbul, Türkiye"
+  },
+  "announcement": {
+    "text": "<strong>Yaza hazır ol:</strong> İndirimli kontenjana katıl!",
+    "countdownDays": 14
+  },
+  "hero": {
+    "subtitle": "",
+    "title": "Uzaktan Spor Eğitimi",
+    "titleHighlight": "Paketleri",
+    "description": "TVGFBF III. Kademe Antrenör ve EQF Level 4 Personal Trainer İbrahim Ersoran ile kişiye özel antrenman ve beslenme programlarıyla hedeflerinize ulaşın",
+    "stats": [
+      {
+        "value": "500+",
+        "label": "Mutlu Öğrenci"
+      },
+      {
+        "value": "5+",
+        "label": "Yıl Deneyim"
+      },
+      {
+        "value": "%95",
+        "label": "Memnuniyet"
+      }
+    ]
+  },
+  "about": {
+    "name": "İbrahim Ersoran",
+    "descriptions": [
+      "TVGFBF III. Kademe Antrenör ve EQF Level 4 Personal Trainer olarak, bilimsel temellere dayanan kişiye özel antrenman ve beslenme programlarıyla yüzlerce öğrencinin hedeflerine ulaşmasına yardımcı oldum.",
+      "Corrective Exercise Specialist, FNS, Functional Training Specialist ve Exercise Based Hormon and Neurotransmitter Optimization alanlarındaki uzmanlığımla her öğrencime bireysel yaklaşarak en verimli sonuçları elde etmenizi sağlıyorum."
+    ],
+    "badges": [
+      {
+        "icon": "fas fa-certificate",
+        "text": "TVGFBF III. Kademe Antrenör"
+      },
+      {
+        "icon": "fas fa-graduation-cap",
+        "text": "EQF Level 4 PT"
+      },
+      {
+        "icon": "fas fa-award",
+        "text": "Corrective Exercise Specialist"
+      },
+      {
+        "icon": "fas fa-brain",
+        "text": "FNS"
+      },
+      {
+        "icon": "fas fa-running",
+        "text": "Functional Training Specialist"
+      },
+      {
+        "icon": "fas fa-dna",
+        "text": "Hormon & Nörotransmitter Optimizasyonu"
+      }
+    ]
+  },
+  "contact": {
+    "whatsapp": "+90 537 522 94 87",
+    "phone": "+90 537 522 94 87",
+    "email": "ibrahimersoran@hotmail.com",
+    "instagram": "@ibrahimersoran",
+    "whatsappLink": "https://wa.me/905375229487"
+  },
+  "social": {
+    "instagram": "https://instagram.com/ibrahimersoran",
+    "facebook": "https://www.facebook.com/ibrahimersoran",
+    "linkedin": "https://www.linkedin.com/in/ibrahimersoran/"
+  },
+  "footer": {
+    "description": "Kişiye özel antrenman ve beslenme programlarıyla hedeflerinize ulaşın.",
+    "copyright": "2026 İbrahim Ersoran. Tüm hakları saklıdır.",
+    "legalLinks": [
+      {
+        "text": "Çerez Aydınlatma Metni",
+        "url": "#"
+      },
+      {
+        "text": "Mesafeli Satış Sözleşmesi",
+        "url": "#"
+      },
+      {
+        "text": "KVKK Aydınlatma Metni",
+        "url": "#"
+      },
+      {
+        "text": "Veri Sahibi Bilgi Talep Formu",
+        "url": "#"
+      }
+    ]
+  }
+}

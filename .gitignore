@@ -4,6 +4,8 @@ Thumbs.db
 node_modules/
 .vscode/
 .idea/
+.cursor/
 *.swp
 *.swo
 *~
+data/auth.json

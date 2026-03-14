@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İbrahim Ersoran | Fitness Eğitmeni</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">İbrahim <span>Ersoran</span></a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Menüyü aç">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#paketler">Paketler</a></li>
+                <li><a href="#degisimler">Değişimler</a></li>
+                <li><a href="#goruntulu">Görüntülü Görüşme</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#hakkimda">Hakkımda</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <p class="hero-subtitle" id="hero-subtitle"></p>
+                <h1 id="hero-title"></h1>
+                <p class="hero-desc" id="hero-desc"></p>
+                <div class="hero-buttons">
+                    <a href="#paketler" class="btn btn-primary">Paketleri İncele</a>
+                    <a href="#degisimler" class="btn btn-outline">Değişimleri Gör</a>
+                </div>
+                <div class="hero-stats" id="hero-stats"></div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/trainer.png" alt="İbrahim Ersoran - Fitness Eğitmeni" class="hero-trainer-img">
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C360,120 720,0 1440,60 L1440,120 L0,120 Z" fill="var(--bg-primary)"/>
+            </svg>
+        </div>
+    </section>
+
+    <section class="packages" id="paketler">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Paketler</span>
+                <h2>Sana Uygun Paketi Seç</h2>
+                <p>Kişiye özel hazırlanmış antrenman ve beslenme programlarıyla hedeflerinize vakit kaybetmeden ulaşın</p>
+            </div>
+            <div class="packages-grid" id="packages-grid"></div>
+        </div>
+    </section>
+
+    <section class="package-details">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Detaylar</span>
+                <h2>Paket İçerikleri</h2>
+            </div>
+            <div class="details-grid" id="details-grid"></div>
+        </div>
+    </section>
+
+    <section class="video-call" id="goruntulu">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Yeni</span>
+                <h2>Görüntülü Görüşme Paketleri</h2>
+                <p>İbrahim Ersoran ile birebir görüntülü görüşme imkanı</p>
+            </div>
+            <div class="video-call-grid" id="videocall-grid"></div>
+        </div>
+    </section>
+
+    <section class="transformations" id="degisimler">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Değişimler</span>
+                <h2>Öğrenci Değişimleri</h2>
+                <p>İbrahim Ersoran ile başarı hikayeleri</p>
+            </div>
+            <div class="transformations-grid" id="transformations-grid"></div>
+        </div>
+    </section>
+
+    <section class="blog" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Blog</span>
+                <h2>Son Yazılar</h2>
+            </div>
+            <div class="blog-grid" id="blog-grid"></div>
+        </div>
+    </section>
+
+    <section class="calculators" id="hesaplayicilar">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Araçlar</span>
+                <h2>Hesaplayıcılar</h2>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-card"><i class="fas fa-fire"></i><span>Günlük Kalori</span></div>
+                <div class="calc-card"><i class="fas fa-percentage"></i><span>Vücut Yağ Oranı</span></div>
+                <div class="calc-card"><i class="fas fa-bolt"></i><span>Kalori Yakımı</span></div>
+                <div class="calc-card"><i class="fas fa-weight"></i><span>İdeal Kilo</span></div>
+                <div class="calc-card"><i class="fas fa-dumbbell"></i><span>1RM</span></div>
+                <div class="calc-card"><i class="fas fa-drumstick-bite"></i><span>Protein İhtiyacı</span></div>
+                <div class="calc-card"><i class="fas fa-heart"></i><span>Kalp Atım Hızı</span></div>
+                <div class="calc-card"><i class="fas fa-chart-line"></i><span>Bazal Metabolizma</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="hakkimda">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="assets/images/trainer.png" alt="İbrahim Ersoran - Fitness Eğitmeni" class="about-trainer-img">
+                </div>
+                <div class="about-text" id="about-text">
+                    <span class="section-tag">Hakkımda</span>
+                    <h2 id="about-name"></h2>
+                    <div id="about-descriptions"></div>
+                    <div class="about-badges" id="about-badges"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-media">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Takip Et</span>
+                <h2>Sosyal Medya</h2>
+            </div>
+            <div class="social-grid" id="social-grid"></div>
+        </div>
+    </section>
+
+    <section class="videos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Video</span>
+                <h2>Son Videolar</h2>
+            </div>
+            <div class="videos-grid" id="videos-grid"></div>
+        </div>
+    </section>
+
+    <section class="faq" id="sss">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">S.S.S</span>
+                <h2>Sıkça Sorulan Sorular</h2>
+            </div>
+            <div class="faq-list" id="faq-list"></div>
+        </div>
+    </section>
+
+    <section class="contact" id="iletisim">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">İletişim</span>
+                <h2>Bizimle İletişime Geçin</h2>
+                <p>Sorularınız veya paket satın alma talepleriniz için bize ulaşın</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info" id="contact-info"></div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-row">
+                        <input type="text" placeholder="Adınız Soyadınız" required>
+                        <input type="email" placeholder="E-posta Adresiniz" required>
+                    </div>
+                    <input type="tel" placeholder="Telefon Numaranız">
+                    <select id="contact-select">
+                        <option value="">İlgilendiğiniz Paket</option>
+                    </select>
+                    <textarea rows="4" placeholder="Mesajınız"></textarea>
+                    <button type="submit" class="btn btn-primary btn-full">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">İbrahim <span>Ersoran</span></a>
+                    <p id="footer-description"></p>
+                    <div class="footer-social" id="footer-social"></div>
+                </div>
+                <div class="footer-links">
+                    <h4>İbrahim Ersoran</h4>
+                    <p class="footer-phone" id="footer-phone"></p>
+                    <ul>
+                        <li><a href="#paketler">Paketler</a></li>
+                        <li><a href="#degisimler">Değişimler</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#hakkimda">Hakkımda</a></li>
+                        <li><a href="#iletisim">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Önemli Bilgiler</h4>
+                    <ul id="footer-legal"></ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="footer-copyright"></p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" target="_blank" class="whatsapp-float" id="whatsapp-float" title="WhatsApp ile iletişime geç">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <button class="back-to-top" id="back-to-top" title="Yukarı çık">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <div class="mobile-cta" id="mobile-cta">
+        <a href="#" id="mobile-cta-whatsapp" target="_blank" class="mobile-cta-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp</span>
+        </a>
+        <a href="mailto:ibrahimersoran@hotmail.com" class="mobile-cta-btn mail">
+            <i class="fas fa-envelope"></i>
+            <span>E-posta</span>
+        </a>
+        <a href="#paketler" class="mobile-cta-btn packages">
+            <i class="fas fa-box"></i>
+            <span>Paketler</span>
+        </a>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

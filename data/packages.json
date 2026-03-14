@@ -1,0 +1,309 @@
+{
+  "regular": [
+    {
+      "id": 1,
+      "name": "6 Aylık Full Paket",
+      "oldPrice": "6600 ₺",
+      "price": "3950 ₺",
+      "discount": "%40 İndirim",
+      "featured": true,
+      "badge": "Popüler",
+      "features": [
+        {
+          "icon": "fas fa-gift",
+          "text": "+2 AY HEDİYE"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel antrenman programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel beslenme programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kardiyo Planlaması"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Kombinasyonu"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Sınırsız iletişim, soru-cevap"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "3 Aylık Full Paket",
+      "oldPrice": "4200 ₺",
+      "price": "2950 ₺",
+      "discount": "%30 İndirim",
+      "featured": false,
+      "badge": null,
+      "features": [
+        {
+          "icon": "fas fa-gift",
+          "text": "+1 AY HEDİYE"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel antrenman programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel beslenme programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kardiyo Planlaması"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Kombinasyonu"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Sınırsız iletişim, soru-cevap"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "1 Yıllık Full Paket",
+      "oldPrice": "11200 ₺",
+      "price": "5600 ₺",
+      "discount": "%50 İndirim",
+      "featured": false,
+      "badge": null,
+      "features": [
+        {
+          "icon": "fas fa-gift",
+          "text": "+3 AY HEDİYE"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel antrenman programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel beslenme programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kardiyo Planlaması"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Kombinasyonu"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Sınırsız iletişim, soru-cevap"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "6 Haftalık Full Paket",
+      "oldPrice": null,
+      "price": "2550 ₺",
+      "discount": null,
+      "featured": false,
+      "badge": null,
+      "features": [
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel antrenman programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel beslenme programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kardiyo Planlaması"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Kombinasyonu"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Sınırsız iletişim, soru-cevap"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Antrenman Programı",
+      "oldPrice": null,
+      "price": "1950 ₺",
+      "discount": null,
+      "featured": false,
+      "badge": null,
+      "features": [
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel antrenman programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Sınırsız iletişim, soru-cevap"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Beslenme Programı",
+      "oldPrice": null,
+      "price": "1950 ₺",
+      "discount": null,
+      "featured": false,
+      "badge": null,
+      "features": [
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel beslenme programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Kombinasyonu"
+        }
+      ]
+    }
+  ],
+  "videoCall": [
+    {
+      "id": 7,
+      "name": "4 Seans Görüntülü Görüşme",
+      "oldPrice": "7990 ₺",
+      "price": "5990 ₺",
+      "discount": "%25 İndirim",
+      "featured": true,
+      "badge": "Yeni",
+      "features": [
+        {
+          "icon": "fas fa-video",
+          "text": "İbrahim Ersoran ile Görüntülü Görüşme"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Canlı İletişim, Görüntülü Takip"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Bire bir vücut gelişimi takibi"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Diyetisyen ile görüntülü görüşme"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Planlaması"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Pratik Tarifler"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "7/24 soru-cevap hakkı"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "İbrahim Ersoran'la Görüntülü Görüşme (1 Seans)",
+      "oldPrice": "3490 ₺",
+      "price": "2490 ₺",
+      "discount": "%29 İndirim",
+      "featured": false,
+      "badge": "Yeni",
+      "features": [
+        {
+          "icon": "fas fa-video",
+          "text": "İbrahim Ersoran ile Görüntülü Görüşme"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Canlı İletişim, Görüntülü Takip"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Bire bir vücut gelişimi takibi"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Planlaması"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Diyetisyen Görüşmesi (1 Seans)",
+      "oldPrice": "2490 ₺",
+      "price": "1990 ₺",
+      "discount": "%20 İndirim",
+      "featured": false,
+      "badge": "Yeni",
+      "features": [
+        {
+          "icon": "fas fa-video",
+          "text": "Diyetisyen ile görüntülü görüşme"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Canlı İletişim, Görüntülü Takip"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Bire bir vücut gelişimi takibi"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Supplement Planlaması"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Pratik Tarifler"
+        }
+      ]
+    }
+  ],
+  "details": [
+    {
+      "id": 1,
+      "icon": "fas fa-dumbbell",
+      "title": "Kişiye Özel Antrenman Programı",
+      "description": "Hedeflerinize ve imkanlarınıza özel olarak bilimin ışığında hazırlanan nokta atışı antrenman programı. Ev veya spor salonu koşullarına göre uyarlanır."
+    },
+    {
+      "id": 2,
+      "icon": "fas fa-utensils",
+      "title": "Kişiye Özel Beslenme Programı",
+      "description": "Bütçenize, günlük temponuza ve hedeflerinize göre uzman diyetisyenler tarafından hazırlanan uygulanabilir beslenme programı."
+    },
+    {
+      "id": 3,
+      "icon": "fas fa-heartbeat",
+      "title": "Kardiyo Planlaması",
+      "description": "Maksimum yağ yakımı ve kas kazanmaya yönelik, güncel kondisyon seviyenize uygun kardiyo programları."
+    },
+    {
+      "id": 4,
+      "icon": "fas fa-capsules",
+      "title": "Supplement Kombinasyonu",
+      "description": "Hedefleriniz, programlarınız ve bütçenize uygun şekilde supplementlerin seçilmesi ve planlanması."
+    },
+    {
+      "id": 5,
+      "icon": "fas fa-comments",
+      "title": "Sınırsız İletişim",
+      "description": "Soru-cevap bölümünden sorularınızı istediğiniz zaman iletebilirsiniz. Sorularınız mesai saatleri içerisinde aynı gün cevaplanır."
+    }
+  ]
+}

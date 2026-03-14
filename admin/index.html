@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | İbrahim Ersoran</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>İE <span>Admin</span></h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="dashboard"><i class="fas fa-th-large"></i> Genel Bakış</a>
+            <a href="#" class="nav-item" data-section="config"><i class="fas fa-cog"></i> Site Ayarları</a>
+            <a href="#" class="nav-item" data-section="packages"><i class="fas fa-box"></i> Paketler</a>
+            <a href="#" class="nav-item" data-section="blog"><i class="fas fa-newspaper"></i> Blog Yazıları</a>
+            <a href="#" class="nav-item" data-section="transformations"><i class="fas fa-exchange-alt"></i> Değişimler</a>
+            <a href="#" class="nav-item" data-section="faq"><i class="fas fa-question-circle"></i> S.S.S</a>
+            <a href="#" class="nav-item" data-section="videos"><i class="fas fa-video"></i> Videolar</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/" target="_blank" class="view-site"><i class="fas fa-external-link-alt"></i> Siteyi Görüntüle</a>
+            <button class="btn-logout" id="btn-logout"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
+            <h1 id="page-title">Genel Bakış</h1>
+            <div class="top-bar-actions">
+                <a href="/" target="_blank" class="btn-icon" title="Siteyi Görüntüle"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </header>
+
+        <div class="content-area" id="content-area">
+
+            <!-- Dashboard -->
+            <section class="panel-section active" id="section-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-box"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-packages">0</span>
+                            <span class="stat-label">Paket</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-blog">0</span>
+                            <span class="stat-label">Blog Yazısı</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-exchange-alt"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-transformations">0</span>
+                            <span class="stat-label">Değişim</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-question-circle"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-faq">0</span>
+                            <span class="stat-label">S.S.S</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-video"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-videos">0</span>
+                            <span class="stat-label">Video</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Site Config -->
+            <section class="panel-section" id="section-config">
+                <div class="section-tabs">
+                    <button class="tab-btn active" data-tab="tab-seo">SEO</button>
+                    <button class="tab-btn" data-tab="tab-hero">Hero & Duyuru</button>
+                    <button class="tab-btn" data-tab="tab-about">Hakkımda</button>
+                    <button class="tab-btn" data-tab="tab-contact">İletişim</button>
+                    <button class="tab-btn" data-tab="tab-social">Sosyal Medya</button>
+                    <button class="tab-btn" data-tab="tab-footer">Footer</button>
+                    <button class="tab-btn" data-tab="tab-security">Güvenlik</button>
+                </div>
+
+                <div class="tab-content active" id="tab-seo">
+                    <form id="form-seo" class="admin-form">
+                        <h3>Temel SEO</h3>
+                        <div class="form-group">
+                            <label>Sayfa Başlığı (Title Tag)</label>
+                            <input type="text" name="seo_title" placeholder="İbrahim Ersoran | Fitness Eğitmeni">
+                            <small class="form-hint">Google'da başlık olarak görünür. 50-60 karakter ideal.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Meta Açıklama (Description)</label>
+                            <textarea name="seo_description" rows="3" placeholder="Google'da görünecek site açıklaması..."></textarea>
+                            <small class="form-hint">Arama sonuçlarında açıklama olarak görünür. 150-160 karakter ideal.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Anahtar Kelimeler (Keywords)</label>
+                            <input type="text" name="seo_keywords" placeholder="fitness, antrenman, beslenme...">
+                            <small class="form-hint">Virgülle ayırarak yazın.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Canonical URL</label>
+                            <input type="url" name="seo_canonical" placeholder="https://ibrahimersoran.com">
+                            <small class="form-hint">Sitenin ana adresi. Duplicate content sorunlarını önler.</small>
+                        </div>
+
+                        <h3>Open Graph (Sosyal Medya Paylaşımı)</h3>
+                        <div class="form-group">
+                            <label>OG Başlık</label>
+                            <input type="text" name="seo_og_title" placeholder="Boş bırakılırsa sayfa başlığı kullanılır">
+                            <small class="form-hint">Facebook, LinkedIn vb. paylaşımda görünecek başlık.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>OG Açıklama</label>
+                            <textarea name="seo_og_description" rows="2" placeholder="Boş bırakılırsa meta açıklama kullanılır"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>OG Görsel URL</label>
+                            <input type="text" name="seo_og_image" placeholder="https://ibrahimersoran.com/assets/images/og-image.jpg">
+                            <small class="form-hint">1200x630px önerilen boyut. Paylaşımlarda görünecek görsel.</small>
+                        </div>
+
+                        <h3>Arama Motoru Ayarları</h3>
+                        <div class="form-group">
+                            <label>Robots</label>
+                            <select name="seo_robots">
+                                <option value="index, follow">index, follow (Önerilen)</option>
+                                <option value="noindex, follow">noindex, follow</option>
+                                <option value="index, nofollow">index, nofollow</option>
+                                <option value="noindex, nofollow">noindex, nofollow</option>
+                            </select>
+                            <small class="form-hint">Arama motorlarının siteyi dizine alıp almayacağını belirler.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Google Analytics ID</label>
+                            <input type="text" name="seo_ga_id" placeholder="G-XXXXXXXXXX">
+                            <small class="form-hint">Google Analytics 4 ölçüm kimliği.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Google Site Doğrulama Kodu</label>
+                            <input type="text" name="seo_google_verification" placeholder="google-site-verification metası">
+                            <small class="form-hint">Google Search Console doğrulama meta etiketi içeriği.</small>
+                        </div>
+
+                        <h3>Yapısal Veri (Schema)</h3>
+                        <div class="form-group">
+                            <label>İşletme Türü</label>
+                            <select name="seo_schema_type">
+                                <option value="LocalBusiness">Yerel İşletme</option>
+                                <option value="ProfessionalService">Profesyonel Hizmet</option>
+                                <option value="HealthAndBeautyBusiness">Sağlık & Güzellik</option>
+                                <option value="SportsActivityLocation">Spor Tesisi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>İşletme Adı</label>
+                            <input type="text" name="seo_schema_name" placeholder="İbrahim Ersoran Fitness">
+                        </div>
+                        <div class="form-group">
+                            <label>Konum / Adres</label>
+                            <input type="text" name="seo_schema_address" placeholder="İstanbul, Türkiye">
+                        </div>
+
+                        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="tab-hero">
+                    <form id="form-hero" class="admin-form">
+                        <h3>Duyuru Barı</h3>
+                        <div class="form-group">
+                            <label>Duyuru Metni (HTML destekler)</label>
+                            <input type="text" name="announcement_text" placeholder="Duyuru metni...">
+                        </div>
+                        <div class="form-group">
+                            <label>Geri Sayım (gün)</label>
+                            <input type="number" name="announcement_days" min="1" max="365">
+                        </div>
+                        <h3>Hero Bölümü</h3>
+                        <div class="form-group">
+                            <label>Alt Başlık</label>
+                            <input type="text" name="hero_subtitle">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ana Başlık</label>
+                                <input type="text" name="hero_title">
+                            </div>
+                            <div class="form-group">
+                                <label>Vurgulu Kelime</label>
+                                <input type="text" name="hero_highlight">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Açıklama</label>
+                            <textarea name="hero_description" rows="3"></textarea>
+                        </div>
+                        <h3>İstatistikler</h3>
+                        <div id="stats-container"></div>
+                        <button type="button" class="btn-add-small" id="add-stat"><i class="fas fa-plus"></i> İstatistik Ekle</button>
+                        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="tab-about">
+                    <form id="form-about" class="admin-form">
+                        <div class="form-group">
+                            <label>İsim</label>
+                            <input type="text" name="about_name">
+                        </div>
+                        <div id="about-descriptions"></div>
+                        <button type="button" class="btn-add-small" id="add-description"><i class="fas fa-plus"></i> Paragraf Ekle</button>
+                        <h3>Rozetler</h3>
+                        <div id="about-badges"></div>
+                        <button type="button" class="btn-add-small" id="add-badge"><i class="fas fa-plus"></i> Rozet Ekle</button>
+                        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="tab-contact">
+                    <form id="form-contact" class="admin-form">
+                        <div class="form-group">
+                            <label>WhatsApp Numarası</label>
+                            <input type="text" name="contact_whatsapp">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon</label>
+                            <input type="text" name="contact_phone">
+                        </div>
+                        <div class="form-group">
+                            <label>E-posta</label>
+                            <input type="email" name="contact_email" placeholder="ibrahimersoran@hotmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Instagram Kullanıcı Adı</label>
+                            <input type="text" name="contact_instagram">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp Linki</label>
+                            <input type="text" name="contact_whatsappLink">
+                        </div>
+                        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="tab-social">
+                    <form id="form-social" class="admin-form">
+                        <div class="form-group">
+                            <label><i class="fab fa-instagram"></i> Instagram URL</label>
+                            <input type="text" name="social_instagram">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-facebook"></i> Facebook URL</label>
+                            <input type="text" name="social_facebook">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-linkedin-in"></i> LinkedIn URL</label>
+                            <input type="text" name="social_linkedin">
+                        </div>
+                        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="tab-footer">
+                    <form id="form-footer" class="admin-form">
+                        <div class="form-group">
+                            <label>Footer Açıklama</label>
+                            <input type="text" name="footer_description">
+                        </div>
+                        <div class="form-group">
+                            <label>Copyright Metni</label>
+                            <input type="text" name="footer_copyright" placeholder="2026 İbrahim Ersoran. Tüm hakları saklıdır.">
+                        </div>
+                        <h3>Yasal Linkler</h3>
+                        <div id="legal-links-container"></div>
+                        <button type="button" class="btn-add-small" id="add-legal-link"><i class="fas fa-plus"></i> Link Ekle</button>
+                        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="tab-security">
+                    <form id="form-change-password" class="admin-form">
+                        <h3>Şifre Değiştir</h3>
+                        <div class="form-group">
+                            <label>Mevcut Şifre</label>
+                            <input type="password" name="current_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Yeni Şifre</label>
+                            <input type="password" name="new_password" required minlength="6">
+                            <small class="form-hint">En az 6 karakter olmalı.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Yeni Şifre (Tekrar)</label>
+                            <input type="password" name="new_password_confirm" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn-save"><i class="fas fa-key"></i> Şifreyi Değiştir</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Packages -->
+            <section class="panel-section" id="section-packages">
+                <div class="section-tabs">
+                    <button class="tab-btn active" data-tab="tab-regular-packages">Standart Paketler</button>
+                    <button class="tab-btn" data-tab="tab-videocall-packages">Görüntülü Görüşme</button>
+                    <button class="tab-btn" data-tab="tab-details-packages">Paket Detayları</button>
+                </div>
+                <div class="tab-content active" id="tab-regular-packages">
+                    <div class="list-header">
+                        <h3>Standart Paketler</h3>
+                        <button class="btn-add" id="add-regular-package"><i class="fas fa-plus"></i> Yeni Paket</button>
+                    </div>
+                    <div id="regular-packages-list" class="items-list"></div>
+                </div>
+                <div class="tab-content" id="tab-videocall-packages">
+                    <div class="list-header">
+                        <h3>Görüntülü Görüşme Paketleri</h3>
+                        <button class="btn-add" id="add-videocall-package"><i class="fas fa-plus"></i> Yeni Paket</button>
+                    </div>
+                    <div id="videocall-packages-list" class="items-list"></div>
+                </div>
+                <div class="tab-content" id="tab-details-packages">
+                    <div class="list-header">
+                        <h3>Paket İçerik Detayları</h3>
+                        <button class="btn-add" id="add-detail"><i class="fas fa-plus"></i> Yeni Detay</button>
+                    </div>
+                    <div id="details-list" class="items-list"></div>
+                </div>
+            </section>
+
+            <!-- Blog -->
+            <section class="panel-section" id="section-blog">
+                <div class="list-header">
+                    <h3>Blog Yazıları</h3>
+                    <button class="btn-add" id="add-blog"><i class="fas fa-plus"></i> Yeni Yazı</button>
+                </div>
+                <div id="blog-list" class="items-list"></div>
+            </section>
+
+            <!-- Transformations -->
+            <section class="panel-section" id="section-transformations">
+                <div class="list-header">
+                    <h3>Öğrenci Değişimleri</h3>
+                    <button class="btn-add" id="add-transformation"><i class="fas fa-plus"></i> Yeni Değişim</button>
+                </div>
+                <div id="transformations-list" class="items-list"></div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="panel-section" id="section-faq">
+                <div class="list-header">
+                    <h3>Sıkça Sorulan Sorular</h3>
+                    <button class="btn-add" id="add-faq"><i class="fas fa-plus"></i> Yeni Soru</button>
+                </div>
+                <div id="faq-list" class="items-list"></div>
+            </section>
+
+            <!-- Videos -->
+            <section class="panel-section" id="section-videos">
+                <div class="list-header">
+                    <h3>Videolar</h3>
+                    <button class="btn-add" id="add-video"><i class="fas fa-plus"></i> Yeni Video</button>
+                </div>
+                <div id="videos-list" class="items-list"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Düzenle</h3>
+                <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

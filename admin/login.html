@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş | Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f1117;
+            color: #e8e8e8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: #181a20;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .login-logo h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .login-logo h1 span { color: #8BC34A; }
+        .login-logo p {
+            font-size: 0.82rem;
+            color: #8b8d97;
+            margin-top: 6px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #8b8d97;
+            margin-bottom: 8px;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5a5c66;
+            font-size: 0.9rem;
+        }
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            background: #0f1117;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            color: #e8e8e8;
+            font-size: 0.92rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-wrapper input:focus {
+            border-color: #8BC34A;
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
+        }
+        .input-wrapper input::placeholder {
+            color: #5a5c66;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background: #8BC34A;
+            color: #0f1117;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-login:hover { background: #9CCC65; }
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .error-msg {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .error-msg.visible { display: block; }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: #5a5c66;
+            font-size: 0.78rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #8b8d97; }
+        @media (max-width: 480px) {
+            .login-card { padding: 36px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-logo">
+            <h1>İE <span>Admin</span></h1>
+            <p>Yönetim paneline erişmek için giriş yapın</p>
+        </div>
+
+        <div class="error-msg" id="error-msg"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label>Şifre</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Admin şifrenizi girin" required autofocus>
+                </div>
+            </div>
+            <button type="submit" class="btn-login" id="btn-login">
+                <i class="fas fa-sign-in-alt"></i> Giriş Yap
+            </button>
+        </form>
+
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Siteye Dön</a>
+    </div>
+
+    <script>
+    const form = document.getElementById('login-form');
+    const errorEl = document.getElementById('error-msg');
+    const btn = document.getElementById('btn-login');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const password = document.getElementById('password').value;
+        if (!password) return;
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kontrol ediliyor...';
+        errorEl.classList.remove('visible');
+
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                window.location.href = '/admin/';
+                return;
+            }
+
+            let msg = data.error || 'Giris basarisiz';
+            if (data.attemptsLeft !== undefined && data.attemptsLeft > 0) {
+                msg += ` (${data.attemptsLeft} deneme hakkı kaldı)`;
+            }
+            if (data.remainingSeconds) {
+                const min = Math.ceil(data.remainingSeconds / 60);
+                msg += ` (${min} dakika beklemeniz gerekiyor)`;
+            }
+
+            errorEl.textContent = msg;
+            errorEl.classList.add('visible');
+        } catch (err) {
+            errorEl.textContent = 'Baglanti hatasi. Lutfen tekrar deneyin.';
+            errorEl.classList.add('visible');
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Giriş Yap';
+    });
+
+    (async () => {
+        try {
+            const res = await fetch('/api/auth/check');
+            const data = await res.json();
+            if (data.authenticated) window.location.href = '/admin/';
+        } catch {}
+    })();
+    </script>
+</body>
+</html>

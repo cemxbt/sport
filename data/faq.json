@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "question": "Programlar nasıl hazırlanıyor?",
+    "answer": "Kayıt sonrası detaylı bir form dolduruyorsunuz. Bu formda hedefleriniz, sağlık durumunuz, günlük rutininiz ve beslenme alışkanlıklarınız gibi bilgiler yer alıyor. Bu bilgiler doğrultusunda size özel programlar hazırlanıyor."
+  },
+  {
+    "id": 2,
+    "question": "Evde antrenman yapabilir miyim?",
+    "answer": "Evet, antrenman programınız ev veya spor salonu koşullarına göre özel olarak hazırlanır. Sahip olduğunuz ekipmanlar göz önünde bulundurulur."
+  },
+  {
+    "id": 3,
+    "question": "Program süresince değişiklik yapılır mı?",
+    "answer": "Evet, gelişiminize göre programlarınız düzenli olarak güncellenir. Ara değerlendirme formlarıyla ilerlemeniz takip edilir ve gerekli düzenlemeler yapılır."
+  },
+  {
+    "id": 4,
+    "question": "Ödeme nasıl yapılır?",
+    "answer": "Kredi kartı, banka kartı veya havale/EFT ile ödeme yapabilirsiniz. Taksit seçenekleri de mevcuttur."
+  },
+  {
+    "id": 5,
+    "question": "Sağlık sorunlarım var, katılabilir miyim?",
+    "answer": "Evet, ekibimizde fizyoterapist de bulunmaktadır. Bel fıtığı, skolyoz, lordoz gibi özel sağlık durumlarınıza uygun şekilde program hazırlanır."
+  }
+]
