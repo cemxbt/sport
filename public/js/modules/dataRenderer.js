@@ -1,12 +1,22 @@
+async function fetchJSON(filename) {
+    const apiBase = window.SITE_API_BASE;
+    if (apiBase) {
+        try {
+            const res = await fetch(`${apiBase}/data/${filename}`, { cache: 'no-store' });
+            if (res.ok) return res.json();
+        } catch {}
+    }
+    return fetch(`./data/${filename}`).then(r => r.json());
+}
+
 export async function initDataRenderer() {
-    const base = './data';
     const [config, packages, blog, transformations, faq, videos] = await Promise.all([
-        fetch(`${base}/config.json`).then(r => r.json()),
-        fetch(`${base}/packages.json`).then(r => r.json()),
-        fetch(`${base}/blog.json`).then(r => r.json()),
-        fetch(`${base}/transformations.json`).then(r => r.json()),
-        fetch(`${base}/faq.json`).then(r => r.json()),
-        fetch(`${base}/videos.json`).then(r => r.json())
+        fetchJSON('config.json'),
+        fetchJSON('packages.json'),
+        fetchJSON('blog.json'),
+        fetchJSON('transformations.json'),
+        fetchJSON('faq.json'),
+        fetchJSON('videos.json')
     ]);
 
     renderConfig(config);

@@ -40,6 +40,24 @@ if (IS_PRODUCTION) {
     app.set('trust proxy', 1);
 }
 
+const ALLOWED_ORIGINS = [
+    'https://ibrahimersoran.com',
+    'https://www.ibrahimersoran.com',
+    'http://localhost:3000'
+];
+
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (ALLOWED_ORIGINS.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+    }
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+    next();
+});
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -427,6 +445,14 @@ app.delete('/api/videos/:id', requireAuth, (req, res) => {
 app.post('/api/upload', requireAuth, upload.single('image'), (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'Dosya yüklenmedi' });
     res.json({ url: `/assets/images/uploads/${req.file.filename}` });
+});
+
+app.post('/api/upload-trainer', requireAuth, upload.single('image'), (req, res) => {
+    if (!req.file) return res.status(400).json({ error: 'Dosya yüklenmedi' });
+    const trainerPath = path.join(__dirname, 'public', 'assets', 'images', 'trainer.png');
+    fs.copyFileSync(req.file.path, trainerPath);
+    fs.unlinkSync(req.file.path);
+    res.json({ success: true, url: '/assets/images/trainer.png?v=' + Date.now() });
 });
 
 app.get('/', (req, res) => {

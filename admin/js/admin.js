@@ -734,6 +734,27 @@ document.getElementById('form-change-password').addEventListener('submit', async
     f.reset();
 });
 
+document.getElementById('trainer-photo-input').addEventListener('change', async function() {
+    if (!this.files[0]) return;
+    const status = document.getElementById('trainer-upload-status');
+    status.textContent = 'Yükleniyor...';
+    try {
+        const fd = new FormData();
+        fd.append('image', this.files[0]);
+        const res = await fetch('/api/upload-trainer', { method: 'POST', body: fd });
+        const data = await handleResponse(res);
+        if (data.success) {
+            document.getElementById('trainer-preview').src = data.url;
+            status.textContent = 'Fotoğraf güncellendi!';
+            toast('Eğitmen fotoğrafı değiştirildi');
+        }
+    } catch {
+        status.textContent = 'Yükleme başarısız';
+        toast('Fotoğraf yüklenemedi', 'error');
+    }
+    this.value = '';
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const res = await fetch('/api/auth/check');
