@@ -8,4 +8,5 @@ node_modules/
 *.swp
 *.swo
 *~
+.env
 data/auth.json

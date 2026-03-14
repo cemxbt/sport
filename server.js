@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -7,22 +9,35 @@ const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const UPLOAD_DIR = path.join(__dirname, 'public', 'assets', 'images', 'uploads');
+const PUBLIC_DATA_DIR = path.join(__dirname, 'public', 'data');
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_REPO = process.env.GITHUB_REPO || 'cemxbt/sport';
 
 const MAX_ATTEMPTS = 5;
 const LOCK_DURATION = 15 * 60 * 1000;
 const SESSION_DURATION = 24 * 60 * 60 * 1000;
 
-if (!fs.existsSync(UPLOAD_DIR)) {
-    fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+[UPLOAD_DIR, PUBLIC_DATA_DIR].forEach(dir => {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+});
+
+const AUTH_FILE = path.join(DATA_DIR, 'auth.json');
+if (!fs.existsSync(AUTH_FILE)) {
+    const defaultHash = bcrypt.hashSync('admin123', 10);
+    fs.writeFileSync(AUTH_FILE, JSON.stringify({
+        passwordHash: defaultHash,
+        sessions: [],
+        failedAttempts: {}
+    }, null, 2), 'utf-8');
 }
 
-const PUBLIC_DATA_DIR = path.join(__dirname, 'public', 'data');
-
-if (!fs.existsSync(PUBLIC_DATA_DIR)) {
-    fs.mkdirSync(PUBLIC_DATA_DIR, { recursive: true });
+if (IS_PRODUCTION) {
+    app.set('trust proxy', 1);
 }
 
 app.use(express.json({ limit: '10mb' }));
@@ -61,8 +76,48 @@ function writeData(filename, data) {
     const filepath = path.join(DATA_DIR, filename);
     const json = JSON.stringify(data, null, 2);
     fs.writeFileSync(filepath, json, 'utf-8');
+
     const publicCopy = path.join(PUBLIC_DATA_DIR, filename);
     try { fs.writeFileSync(publicCopy, json, 'utf-8'); } catch (_) {}
+
+    if (GITHUB_TOKEN && filename !== 'auth.json') {
+        syncToGitHub(filename, json).catch(() => {});
+    }
+}
+
+async function syncToGitHub(filename, content) {
+    const headers = {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.github.v3+json'
+    };
+
+    const paths = [`data/${filename}`, `public/data/${filename}`];
+    const encoded = Buffer.from(content).toString('base64');
+
+    for (const filePath of paths) {
+        try {
+            const getRes = await fetch(
+                `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}?ref=main`,
+                { headers }
+            );
+            const fileData = await getRes.json();
+
+            await fetch(
+                `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
+                {
+                    method: 'PUT',
+                    headers,
+                    body: JSON.stringify({
+                        message: `${filename} guncellendi`,
+                        content: encoded,
+                        sha: fileData.sha,
+                        branch: 'main'
+                    })
+                }
+            );
+        } catch (_) {}
+    }
 }
 
 function getNextId(items) {
@@ -84,7 +139,7 @@ function cleanSessions(auth) {
 }
 
 function getClientIp(req) {
-    return req.ip || req.connection.remoteAddress || 'unknown';
+    return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.ip || req.connection.remoteAddress || 'unknown';
 }
 
 function isLocked(auth, ip) {
@@ -166,7 +221,8 @@ app.post('/api/auth/login', async (req, res) => {
 
     res.cookie('admin_session', token, {
         httpOnly: true,
-        sameSite: 'strict',
+        sameSite: IS_PRODUCTION ? 'none' : 'strict',
+        secure: IS_PRODUCTION,
         maxAge: SESSION_DURATION,
         path: '/'
     });
