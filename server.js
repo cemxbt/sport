@@ -221,7 +221,7 @@ app.post('/api/auth/login', async (req, res) => {
 
     res.cookie('admin_session', token, {
         httpOnly: true,
-        sameSite: IS_PRODUCTION ? 'none' : 'strict',
+        sameSite: IS_PRODUCTION ? 'lax' : 'strict',
         secure: IS_PRODUCTION,
         maxAge: SESSION_DURATION,
         path: '/'
