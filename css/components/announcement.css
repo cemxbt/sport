@@ -1,0 +1,44 @@
+.announcement-bar {
+    background: linear-gradient(90deg, #0d0d0d, #111, #0d0d0d);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1001;
+}
+
+.announcement-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    font-size: 0.84rem;
+    flex-wrap: wrap;
+    letter-spacing: 0.3px;
+}
+
+.countdown {
+    display: flex;
+    gap: 10px;
+}
+
+.countdown-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.countdown-num {
+    background: var(--primary);
+    color: #0a0a0a;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 0.82rem;
+    min-width: 30px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}

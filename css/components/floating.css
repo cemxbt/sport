@@ -1,0 +1,128 @@
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background: #25d366;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+    transition: var(--transition);
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-float i {
+    font-size: 1.6rem;
+    color: white;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 92px;
+    width: 42px;
+    height: 42px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(139, 195, 74, 0.05);
+}
+
+.mobile-cta {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-cta {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(10, 10, 10, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border);
+        padding: 10px 12px;
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+
+    .mobile-cta-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px 6px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.78rem;
+        text-align: center;
+        text-decoration: none;
+        transition: var(--transition);
+        white-space: nowrap;
+        box-sizing: border-box;
+    }
+
+    .mobile-cta-btn.whatsapp {
+        background: #25d366;
+        color: #fff;
+    }
+
+    .mobile-cta-btn.mail {
+        background: var(--primary);
+        color: #0a0a0a;
+    }
+
+    .mobile-cta-btn.packages {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+    }
+
+    .mobile-cta-btn i {
+        font-size: 0.95rem;
+        flex-shrink: 0;
+    }
+
+    .whatsapp-float {
+        display: none;
+    }
+
+    .back-to-top {
+        bottom: 76px;
+        right: 16px;
+    }
+}
