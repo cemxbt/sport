@@ -61,6 +61,16 @@
 
     .nav-toggle { display: flex; }
 
+    .navbar {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: #0a0a0a;
+    }
+
+    .navbar.scrolled {
+        background: #0a0a0a;
+    }
+
     .nav-links {
         position: fixed;
         top: 0;
@@ -74,7 +84,7 @@
         transform: translateX(100%);
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 999;
-        align-items: flex-start;
+        align-items: stretch;
         overflow-y: auto;
     }
 
