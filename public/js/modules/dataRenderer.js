@@ -2,7 +2,13 @@ async function fetchJSON(filename) {
     const apiBase = window.SITE_API_BASE;
     if (apiBase) {
         try {
-            const res = await fetch(`${apiBase}/data/${filename}`, { cache: 'no-store' });
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 4000);
+            const res = await fetch(`${apiBase}/data/${filename}`, {
+                cache: 'no-store',
+                signal: controller.signal
+            });
+            clearTimeout(timeout);
             if (res.ok) return res.json();
         } catch {}
     }
