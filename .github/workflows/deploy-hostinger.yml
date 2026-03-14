@@ -1,0 +1,38 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/**'
+      - 'data/**'
+
+concurrency:
+  group: hostinger-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare files
+        run: |
+          mkdir -p deploy
+          cp -r public/* deploy/
+          cp public/.htaccess deploy/ 2>/dev/null || true
+          cp public/.nojekyll deploy/ 2>/dev/null || true
+          mkdir -p deploy/data
+          cp data/*.json deploy/data/ 2>/dev/null || true
+          rm -f deploy/data/auth.json
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./deploy/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
