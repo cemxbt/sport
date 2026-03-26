@@ -28,12 +28,21 @@ jobs:
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          local-dir: ./deploy/
-          server-dir: /
-          dangerous-clean-slate: true
+      - name: Debug FTP and Deploy
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          echo "=== FTP Connection Test ==="
+          curl --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" --list-only 2>&1 || echo "Root listing failed"
+          
+          echo "=== Checking public_html ==="
+          curl --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/public_html/" --list-only 2>&1 || echo "public_html listing failed"
+          
+          echo "=== Upload test file ==="
+          echo "deploy-test-$(date +%s)" > /tmp/deploy-test.txt
+          curl --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T /tmp/deploy-test.txt "ftp://$FTP_HOST/public_html/deploy-test.txt" -v 2>&1 || echo "Upload failed"
+          
+          echo "=== Upload data file ==="
+          curl --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T deploy/data/packages.json "ftp://$FTP_HOST/public_html/data/packages.json" -v 2>&1 || echo "Data upload failed"
