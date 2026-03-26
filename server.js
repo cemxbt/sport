@@ -138,6 +138,35 @@ async function syncToGitHub(filename, content) {
     }
 }
 
+async function syncFileToGitHub(repoPath, base64Content, commitMsg) {
+    if (!GITHUB_TOKEN) return;
+    const headers = {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.github.v3+json'
+    };
+    try {
+        const getRes = await fetch(
+            `https://api.github.com/repos/${GITHUB_REPO}/contents/${repoPath}?ref=main`,
+            { headers }
+        );
+        const fileData = await getRes.json();
+        await fetch(
+            `https://api.github.com/repos/${GITHUB_REPO}/contents/${repoPath}`,
+            {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                    message: commitMsg || `${repoPath} guncellendi`,
+                    content: base64Content,
+                    sha: fileData.sha || undefined,
+                    branch: 'main'
+                })
+            }
+        );
+    } catch (_) {}
+}
+
 function getNextId(items) {
     if (!items.length) return 1;
     return Math.max(...items.map(i => i.id)) + 1;
@@ -447,11 +476,17 @@ app.post('/api/upload', requireAuth, upload.single('image'), (req, res) => {
     res.json({ url: `/assets/images/uploads/${req.file.filename}` });
 });
 
-app.post('/api/upload-trainer', requireAuth, upload.single('image'), (req, res) => {
+app.post('/api/upload-trainer', requireAuth, upload.single('image'), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'Dosya yüklenmedi' });
     const trainerPath = path.join(__dirname, 'public', 'assets', 'images', 'trainer.png');
     fs.copyFileSync(req.file.path, trainerPath);
     fs.unlinkSync(req.file.path);
+
+    if (GITHUB_TOKEN) {
+        const imgBase64 = fs.readFileSync(trainerPath).toString('base64');
+        syncFileToGitHub('public/assets/images/trainer.png', imgBase64, 'Egitmen fotografi guncellendi').catch(() => {});
+    }
+
     res.json({ success: true, url: '/assets/images/trainer.png?v=' + Date.now() });
 });
 
