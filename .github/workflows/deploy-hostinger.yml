@@ -28,20 +28,12 @@ jobs:
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Install lftp
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-
       - name: Deploy via FTP
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
-        run: |
-          lftp -e "
-            set ftp:ssl-allow yes;
-            set ssl:verify-certificate no;
-            set net:max-retries 3;
-            set net:timeout 15;
-            mirror -R --delete --verbose ./deploy/ /public_html/;
-            bye;
-          " -u "$FTP_USER","$FTP_PASS" "$FTP_HOST"
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./deploy/
+          server-dir: /
+          dangerous-clean-slate: true
