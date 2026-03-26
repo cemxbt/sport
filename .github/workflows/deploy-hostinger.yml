@@ -28,20 +28,28 @@ jobs:
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Install lftp
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-
       - name: Deploy via FTP
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          lftp -e "
-            set ftp:ssl-force yes;
-            set ssl:verify-certificate no;
-            set net:max-retries 3;
-            set net:timeout 15;
-            mirror -R --delete --verbose ./deploy/ /;
-            bye;
-          " -u "$FTP_USER","$FTP_PASS" "$FTP_HOST"
+          cd deploy
+          
+          upload_file() {
+            local file="$1"
+            local remote_dir=$(dirname "$file")
+            
+            if [ "$remote_dir" != "." ]; then
+              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD $remote_dir" 2>/dev/null || true
+            fi
+            
+            curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$file" --ftp-create-dirs
+            echo "Uploaded: $file"
+          }
+          
+          find . -type f | sed 's|^\./||' | while read file; do
+            upload_file "$file"
+          done
+          
+          echo "Deploy completed"
