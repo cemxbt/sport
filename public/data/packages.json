@@ -37,7 +37,7 @@
     },
     {
       "id": 2,
-      "name": "3 Aylık Full Paket - Paket",
+      "name": "3 Aylık Full Paket",
       "oldPrice": "4200 ₺",
       "price": "2950 ₺",
       "discount": "%30 İndirim",
@@ -72,7 +72,7 @@
     },
     {
       "id": 3,
-      "name": "1 Yıllık Full Paket - Paket",
+      "name": "1 Yıllık Full Paket",
       "oldPrice": "11200 ₺",
       "price": "5600 ₺",
       "discount": "%50 İndirim",
@@ -157,7 +157,7 @@
     },
     {
       "id": 6,
-      "name": "Beslenme Programı - Program",
+      "name": "Beslenme Programı",
       "oldPrice": null,
       "price": "1950 ₺",
       "discount": null,
