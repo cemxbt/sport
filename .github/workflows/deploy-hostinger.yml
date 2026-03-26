@@ -29,11 +29,13 @@ jobs:
           rm -f deploy/data/auth.json
 
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          local-dir: ./deploy/
-          server-dir: /public_html/
-          dangerous-clean-slate: true
+        run: |
+          lftp -c "
+            set ftp:ssl-allow yes;
+            set ssl:verify-certificate no;
+            set net:max-retries 3;
+            set net:timeout 10;
+            open ftp://${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}@${{ secrets.FTP_HOST }};
+            mirror -R --delete --verbose --parallel=5 ./deploy/ /public_html/;
+            bye;
+          "
