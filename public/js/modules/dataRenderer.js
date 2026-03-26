@@ -1,23 +1,15 @@
 let dataFromAPI = false;
 
-async function fetchJSON(filename) {
-    const apiBase = window.SITE_API_BASE;
-    if (apiBase) {
-        try {
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 5000);
-            const res = await fetch(`${apiBase}/data/${filename}`, {
-                cache: 'no-store',
-                signal: controller.signal
-            });
-            clearTimeout(timeout);
-            if (res.ok) {
-                dataFromAPI = true;
-                return res.json();
-            }
-        } catch {}
-    }
+const API_BATCH_TIMEOUT_MS = 90000;
+
+async function fetchJSONLocal(filename) {
     return fetch(`./data/${filename}`).then(r => r.json());
+}
+
+async function fetchJSONFromAPI(base, filename, signal) {
+    const res = await fetch(`${base}/data/${filename}`, { cache: 'no-store', signal });
+    if (!res.ok) throw new Error(filename);
+    return res.json();
 }
 
 function resolveAssetURL(path) {
@@ -30,14 +22,50 @@ function resolveAssetURL(path) {
 }
 
 export async function initDataRenderer() {
-    const [config, packages, blog, transformations, faq, videos] = await Promise.all([
-        fetchJSON('config.json'),
-        fetchJSON('packages.json'),
-        fetchJSON('blog.json'),
-        fetchJSON('transformations.json'),
-        fetchJSON('faq.json'),
-        fetchJSON('videos.json')
-    ]);
+    dataFromAPI = false;
+    const apiBase = window.SITE_API_BASE;
+    let config;
+    let packages;
+    let blog;
+    let transformations;
+    let faq;
+    let videos;
+
+    if (apiBase) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), API_BATCH_TIMEOUT_MS);
+        try {
+            [config, packages, blog, transformations, faq, videos] = await Promise.all([
+                fetchJSONFromAPI(apiBase, 'config.json', controller.signal),
+                fetchJSONFromAPI(apiBase, 'packages.json', controller.signal),
+                fetchJSONFromAPI(apiBase, 'blog.json', controller.signal),
+                fetchJSONFromAPI(apiBase, 'transformations.json', controller.signal),
+                fetchJSONFromAPI(apiBase, 'faq.json', controller.signal),
+                fetchJSONFromAPI(apiBase, 'videos.json', controller.signal)
+            ]);
+            clearTimeout(timeout);
+            dataFromAPI = true;
+        } catch {
+            clearTimeout(timeout);
+            [config, packages, blog, transformations, faq, videos] = await Promise.all([
+                fetchJSONLocal('config.json'),
+                fetchJSONLocal('packages.json'),
+                fetchJSONLocal('blog.json'),
+                fetchJSONLocal('transformations.json'),
+                fetchJSONLocal('faq.json'),
+                fetchJSONLocal('videos.json')
+            ]);
+        }
+    } else {
+        [config, packages, blog, transformations, faq, videos] = await Promise.all([
+            fetchJSONLocal('config.json'),
+            fetchJSONLocal('packages.json'),
+            fetchJSONLocal('blog.json'),
+            fetchJSONLocal('transformations.json'),
+            fetchJSONLocal('faq.json'),
+            fetchJSONLocal('videos.json')
+        ]);
+    }
 
     renderConfig(config);
     renderPackages(packages);
