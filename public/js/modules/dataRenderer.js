@@ -1,18 +1,32 @@
+let dataFromAPI = false;
+
 async function fetchJSON(filename) {
     const apiBase = window.SITE_API_BASE;
     if (apiBase) {
         try {
             const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 4000);
+            const timeout = setTimeout(() => controller.abort(), 5000);
             const res = await fetch(`${apiBase}/data/${filename}`, {
                 cache: 'no-store',
                 signal: controller.signal
             });
             clearTimeout(timeout);
-            if (res.ok) return res.json();
+            if (res.ok) {
+                dataFromAPI = true;
+                return res.json();
+            }
         } catch {}
     }
     return fetch(`./data/${filename}`).then(r => r.json());
+}
+
+function resolveAssetURL(path) {
+    if (!path) return path;
+    if (path.startsWith('http')) return path;
+    if (dataFromAPI && window.SITE_API_BASE) {
+        return `${window.SITE_API_BASE}/${path.replace(/^\.?\//, '')}`;
+    }
+    return path;
 }
 
 export async function initDataRenderer() {
@@ -31,6 +45,12 @@ export async function initDataRenderer() {
     renderTransformations(transformations);
     renderFaq(faq);
     renderVideos(videos);
+
+    if (dataFromAPI && window.SITE_API_BASE) {
+        document.querySelectorAll('.hero-trainer-img, .about-trainer-img').forEach(img => {
+            img.src = `${window.SITE_API_BASE}/assets/images/trainer.png?v=${Date.now()}`;
+        });
+    }
 }
 
 function renderConfig(c) {
@@ -304,13 +324,13 @@ function renderTransformations(items) {
             <div class="transform-before">
                 <span class="transform-label">Öncesi</span>
                 ${t.beforeImage
-                    ? `<img src="${t.beforeImage}" alt="Öncesi" style="width:100%;height:100%;object-fit:cover">`
+                    ? `<img src="${resolveAssetURL(t.beforeImage)}" alt="Öncesi" style="width:100%;height:100%;object-fit:cover">`
                     : '<div class="transform-placeholder"><i class="fas fa-user"></i></div>'}
             </div>
             <div class="transform-after">
                 <span class="transform-label">Sonrası</span>
                 ${t.afterImage
-                    ? `<img src="${t.afterImage}" alt="Sonrası" style="width:100%;height:100%;object-fit:cover">`
+                    ? `<img src="${resolveAssetURL(t.afterImage)}" alt="Sonrası" style="width:100%;height:100%;object-fit:cover">`
                     : '<div class="transform-placeholder after"><i class="fas fa-user"></i></div>'}
             </div>
         </div>
