@@ -23,33 +23,19 @@ jobs:
           mkdir -p deploy
           cp -r public/* deploy/
           cp public/.htaccess deploy/ 2>/dev/null || true
-          cp public/.nojekyll deploy/ 2>/dev/null || true
           mkdir -p deploy/data
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Deploy via FTP
+      - name: Test FTP Upload
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          cd deploy
-          
-          upload_file() {
-            local file="$1"
-            local remote_dir=$(dirname "$file")
-            
-            if [ "$remote_dir" != "." ]; then
-              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD $remote_dir" 2>/dev/null || true
-            fi
-            
-            curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$file" --ftp-create-dirs
-            echo "Uploaded: $file"
-          }
-          
-          find . -type f | sed 's|^\./||' | while read file; do
-            upload_file "$file"
-          done
-          
-          echo "Deploy completed"
+          echo "test-$(date +%s)" > /tmp/ftp-test.txt
+          echo "=== Uploading test file ==="
+          curl --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T /tmp/ftp-test.txt "ftp://$FTP_HOST/ftp-test.txt" -v 2>&1
+          echo ""
+          echo "=== Uploading packages.json ==="
+          curl --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T deploy/data/packages.json "ftp://$FTP_HOST/data/packages.json" -v 2>&1
