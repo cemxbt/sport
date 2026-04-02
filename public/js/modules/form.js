@@ -31,12 +31,17 @@ export function initContactForm() {
         btn.style.color = '';
         btn.style.boxShadow = '';
 
+        let fetchTimer;
         try {
+            const controller = new AbortController();
+            fetchTimer = setTimeout(() => controller.abort(), 25000);
             const res = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
+                body: JSON.stringify(body),
+                signal: controller.signal
             });
+            clearTimeout(fetchTimer);
             const data = await res.json().catch(() => ({}));
 
             if (!res.ok) {
@@ -57,7 +62,11 @@ export function initContactForm() {
                 btn.disabled = false;
             }, 3000);
         } catch (err) {
-            btn.textContent = err.message || 'Gönderilemedi';
+            clearTimeout(fetchTimer);
+            const msg = err.name === 'AbortError'
+                ? 'Sunucu cevap vermedi. SMTP/Render ayarlarini kontrol edin.'
+                : (err.message || 'Gönderilemedi');
+            btn.textContent = msg;
             btn.style.background = '#c0392b';
             btn.style.color = '#fff';
             setTimeout(() => {

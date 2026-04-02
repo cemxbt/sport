@@ -16,13 +16,16 @@ AddType font/woff .woff
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
+    <FilesMatch "\.js$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
 </IfModule>
 
-# Caching
+# Caching (JS kisa: iletisim formu ve moduller guncellenince tarayici eski bundle tutmasin)
 <IfModule mod_expires.c>
     ExpiresActive On
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 0 seconds"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"

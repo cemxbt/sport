@@ -38,7 +38,10 @@ function getMailTransport() {
     const opts = {
         host,
         port,
-        auth: { user, pass }
+        auth: { user, pass },
+        connectionTimeout: 12000,
+        greetingTimeout: 12000,
+        socketTimeout: 15000
     };
     if (port === 465) {
         opts.secure = true;
@@ -87,6 +90,7 @@ if (IS_PRODUCTION) {
 const ALLOWED_ORIGINS = [
     'https://ibrahimersoran.com',
     'https://www.ibrahimersoran.com',
+    'https://sport-xmgh.onrender.com',
     'http://localhost:3000'
 ];
 
@@ -390,18 +394,28 @@ app.post('/api/contact', async (req, res) => {
         message
     ].filter(Boolean).join('\n');
 
+    const mailOpts = {
+        from: `"ibrahimersoran.com" <${fromAddr}>`,
+        to: toList,
+        replyTo: email,
+        subject,
+        text
+    };
+    const sendDeadline = 18000;
     try {
-        await transport.sendMail({
-            from: `"ibrahimersoran.com" <${fromAddr}>`,
-            to: toList,
-            replyTo: email,
-            subject,
-            text
-        });
+        await Promise.race([
+            transport.sendMail(mailOpts),
+            new Promise((_, reject) => {
+                setTimeout(() => reject(new Error('SMTP timeout')), sendDeadline);
+            })
+        ]);
         res.json({ success: true });
     } catch (err) {
         console.error('contact mail error', err.message);
-        res.status(500).json({ error: 'E-posta gonderilemedi. Lutfen daha sonra tekrar deneyin.' });
+        const msg = /timeout/i.test(err.message)
+            ? 'E-posta sunucusu zaman asimina ugradi. SMTP ayarlarini kontrol edin.'
+            : 'E-posta gonderilemedi. Lutfen daha sonra tekrar deneyin.';
+        res.status(500).json({ error: msg });
     }
 });
 
