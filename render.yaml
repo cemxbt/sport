@@ -22,6 +22,8 @@ services:
         sync: false
       - key: CONTACT_MAIL_TO
         sync: false
+      - key: CONTACT_MAIL_ALSO
+        sync: false
       - key: CONTACT_MAIL_FROM
         sync: false
       - key: RESEND_API_KEY

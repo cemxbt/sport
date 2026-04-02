@@ -29,6 +29,22 @@ const contactRateByIp = new Map();
 
 const DEFAULT_CONTACT_TO = 'iletisim@ibrahimersoran.com,ibrahimersoran@hotmail.com';
 
+function mergeContactRecipients(toList) {
+    const lower = (addr) => addr.toLowerCase();
+    const seen = new Set(toList.map(lower));
+    const alsoRaw =
+        process.env.CONTACT_MAIL_ALSO !== undefined
+            ? process.env.CONTACT_MAIL_ALSO
+            : 'ibrahimersoran@hotmail.com';
+    for (const addr of alsoRaw.split(',').map(s => s.trim()).filter(Boolean)) {
+        if (!seen.has(lower(addr))) {
+            seen.add(lower(addr));
+            toList.push(addr);
+        }
+    }
+    return toList;
+}
+
 function getMailTransport() {
     const host = process.env.SMTP_HOST;
     const user = process.env.SMTP_USER;
@@ -416,6 +432,7 @@ app.post('/api/contact', async (req, res) => {
     const toRaw = process.env.CONTACT_MAIL_TO || DEFAULT_CONTACT_TO;
     let toList = toRaw.split(',').map(s => s.trim()).filter(Boolean);
     if (!toList.length) toList = ['iletisim@ibrahimersoran.com'];
+    mergeContactRecipients(toList);
 
     const subject = `Iletisim formu: ${name}`;
     const text = [
