@@ -253,6 +253,93 @@
     <script>
         window.SITE_API_BASE = 'https://sport-xmgh.onrender.com';
     </script>
-    <script type="module" src="js/app.js?v=20260404"></script>
+    <script type="module" src="js/app.js?v=20260405"></script>
+    <script>
+    (function () {
+        var form = document.getElementById('contact-form');
+        if (!form || form.dataset.contactBound === '1') return;
+        form.dataset.contactBound = '1';
+        function collectBody() {
+            var fd = new FormData(form);
+            var name = String(fd.get('name') || '').trim();
+            var email = String(fd.get('email') || '').trim();
+            if (name || email) {
+                return {
+                    name: name,
+                    email: email,
+                    phone: String(fd.get('phone') || '').trim(),
+                    package: String(fd.get('package') || '').trim(),
+                    message: String(fd.get('message') || '').trim()
+                };
+            }
+            var nodes = form.querySelectorAll('input:not([type="hidden"]), select, textarea');
+            return {
+                name: (nodes[0] && nodes[0].value || '').trim(),
+                email: (nodes[1] && nodes[1].value || '').trim(),
+                phone: (nodes[2] && nodes[2].value || '').trim(),
+                package: (nodes[3] && nodes[3].value || '').trim(),
+                message: (nodes[4] && nodes[4].value || '').trim()
+            };
+        }
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var btn = form.querySelector('button[type="submit"]');
+            if (!btn || btn.disabled) return;
+            var orig = btn.textContent;
+            var raw = (typeof window.SITE_API_BASE === 'string' && window.SITE_API_BASE) ? window.SITE_API_BASE.trim() : '';
+            var base = raw.replace(/\/$/, '');
+            if (!base && /^(www\.)?ibrahimersoran\.com$/i.test(location.hostname)) {
+                base = 'https://sport-xmgh.onrender.com';
+            }
+            var url = base ? base + '/api/contact' : '/api/contact';
+            var body = collectBody();
+            btn.disabled = true;
+            btn.textContent = 'Gönderiliyor...';
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.style.boxShadow = '';
+            var ac = new AbortController();
+            var to = setTimeout(function () { ac.abort(); }, 25000);
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+                signal: ac.signal
+            }).then(function (res) {
+                clearTimeout(to);
+                return res.json().then(function (data) {
+                    if (!res.ok) throw new Error((data && data.error) || 'Gönderilemedi');
+                    btn.textContent = 'Gönderildi!';
+                    btn.style.background = '#fff';
+                    btn.style.color = '#0a0a0a';
+                    btn.style.boxShadow = '0 4px 20px rgba(255, 255, 255, 0.2)';
+                    form.reset();
+                    setTimeout(function () {
+                        btn.textContent = orig;
+                        btn.style.background = '';
+                        btn.style.color = '';
+                        btn.style.boxShadow = '';
+                        btn.disabled = false;
+                    }, 3000);
+                });
+            }).catch(function (err) {
+                clearTimeout(to);
+                var msg = err.name === 'AbortError'
+                    ? 'Sunucu cevap vermedi.'
+                    : (err.message || 'Gönderilemedi');
+                btn.textContent = msg;
+                btn.style.background = '#c0392b';
+                btn.style.color = '#fff';
+                setTimeout(function () {
+                    btn.textContent = orig;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    btn.disabled = false;
+                }, 5000);
+            });
+        }, true);
+    })();
+    </script>
 </body>
 </html>
