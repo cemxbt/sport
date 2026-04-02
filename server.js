@@ -57,6 +57,48 @@ function sanitizeContactField(str, maxLen) {
     return str.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f<>]/g, ' ').trim().slice(0, maxLen);
 }
 
+async function sendContactViaResend({ toList, replyTo, subject, text }) {
+    const key = process.env.RESEND_API_KEY;
+    if (!key) return null;
+
+    const fromAddr = process.env.RESEND_FROM || 'Iletisim <onboarding@resend.dev>';
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    try {
+        const apiRes = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${key}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from: fromAddr,
+                to: toList,
+                reply_to: replyTo,
+                subject,
+                text
+            }),
+            signal: controller.signal
+        });
+        clearTimeout(timer);
+        const data = await apiRes.json().catch(() => ({}));
+        if (!apiRes.ok) {
+            const detail = data.message || data.name || JSON.stringify(data);
+            console.error('resend contact error', apiRes.status, detail);
+            const err = new Error(detail);
+            err.resendStatus = apiRes.status;
+            throw err;
+        }
+        return true;
+    } catch (e) {
+        clearTimeout(timer);
+        if (e.name === 'AbortError') {
+            throw new Error('Resend API zaman asimi');
+        }
+        throw e;
+    }
+}
+
 function contactRateAllowed(ip) {
     const now = Date.now();
     let rec = contactRateByIp.get(ip);
@@ -371,18 +413,10 @@ app.post('/api/contact', async (req, res) => {
         return res.status(400).json({ error: 'Lutfen kisa da olsa bir mesaj yazin.' });
     }
 
-    const transport = getMailTransport();
-    if (!transport) {
-        return res.status(503).json({
-            error: 'E-posta sunucusu yapilandirilmamis. Lutfen site yoneticisiyle iletisime gecin.'
-        });
-    }
-
     const toRaw = process.env.CONTACT_MAIL_TO || DEFAULT_CONTACT_TO;
     let toList = toRaw.split(',').map(s => s.trim()).filter(Boolean);
     if (!toList.length) toList = ['iletisim@ibrahimersoran.com'];
 
-    const fromAddr = process.env.CONTACT_MAIL_FROM || process.env.SMTP_USER;
     const subject = `Iletisim formu: ${name}`;
     const text = [
         `Gonderen: ${name}`,
@@ -394,27 +428,51 @@ app.post('/api/contact', async (req, res) => {
         message
     ].filter(Boolean).join('\n');
 
-    const mailOpts = {
-        from: `"ibrahimersoran.com" <${fromAddr}>`,
-        to: toList,
-        replyTo: email,
-        subject,
-        text
-    };
+    const hasResend = Boolean(process.env.RESEND_API_KEY);
+    const transport = getMailTransport();
+
+    if (!hasResend && !transport) {
+        return res.status(503).json({
+            error: 'E-posta yapilandirilmamis. Renderda RESEND_API_KEY veya SMTP bilgilerini ekleyin.'
+        });
+    }
+
     const sendDeadline = 18000;
     try {
-        await Promise.race([
-            transport.sendMail(mailOpts),
-            new Promise((_, reject) => {
-                setTimeout(() => reject(new Error('SMTP timeout')), sendDeadline);
-            })
-        ]);
+        if (hasResend) {
+            await sendContactViaResend({
+                toList,
+                replyTo: email,
+                subject,
+                text
+            });
+        } else {
+            const fromAddr = process.env.CONTACT_MAIL_FROM || process.env.SMTP_USER;
+            const mailOpts = {
+                from: `"ibrahimersoran.com" <${fromAddr}>`,
+                to: toList,
+                replyTo: email,
+                subject,
+                text
+            };
+            await Promise.race([
+                transport.sendMail(mailOpts),
+                new Promise((_, reject) => {
+                    setTimeout(() => reject(new Error('SMTP timeout')), sendDeadline);
+                })
+            ]);
+        }
         res.json({ success: true });
     } catch (err) {
         console.error('contact mail error', err.message);
-        const msg = /timeout/i.test(err.message)
-            ? 'E-posta sunucusu zaman asimina ugradi. SMTP ayarlarini kontrol edin.'
-            : 'E-posta gonderilemedi. Lutfen daha sonra tekrar deneyin.';
+        let msg = 'E-posta gonderilemedi. Lutfen daha sonra tekrar deneyin.';
+        if (/timeout|zaman asimi/i.test(err.message)) {
+            msg = 'E-posta sunucusu zaman asimina ugradi. SMTP veya ag ayarlarini kontrol edin.';
+        } else if (hasResend && err.resendStatus === 403) {
+            msg = 'Resend: alan adi veya gonderen adresi dogrulanmamis. Resend panelinden domain ve RESEND_FROM ayarlayin.';
+        } else if (hasResend && err.message && err.message.length < 220) {
+            msg = `E-posta servisi: ${err.message}`;
+        }
         res.status(500).json({ error: msg });
     }
 });
