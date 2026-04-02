@@ -1,9 +1,26 @@
 import { initCountdown } from './modules/countdown.js';
 import { initNavigation } from './modules/navigation.js';
 import { initAnimations } from './modules/animations.js';
-import { initContactForm } from './modules/form.js';
 import { initDataRenderer } from './modules/dataRenderer.js';
 import { initCalculators } from './modules/calculators.js';
+
+const FORM_MODULE_V = '20260404';
+
+async function initContactFormLoader() {
+    const raw = typeof window.SITE_API_BASE === 'string' ? window.SITE_API_BASE.trim() : '';
+    const base = raw.replace(/\/$/, '');
+    if (base) {
+        try {
+            const { initContactForm } = await import(`${base}/js/modules/form.js?v=${FORM_MODULE_V}`);
+            initContactForm();
+            return;
+        } catch (e) {
+            console.warn('Iletisim modulu Renderdan yuklenemedi, yerel deneniyor', e);
+        }
+    }
+    const { initContactForm } = await import('./modules/form.js');
+    initContactForm();
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     await initDataRenderer();
@@ -12,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initNavigation();
     initFaqAfterRender();
     initAnimations();
-    initContactForm();
+    await initContactFormLoader();
     initCalculators();
 });
 
