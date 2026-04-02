@@ -5,15 +5,17 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "prepare": "test -d .git && git config core.hooksPath .githooks 2>/dev/null; chmod +x .githooks/commit-msg 2>/dev/null; exit 0"
   },
-  "author": "cemxbt",
+  "author": "İbrahim Ersoran",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.3.1",
     "express": "^4.21.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.10.1"
   }
 }

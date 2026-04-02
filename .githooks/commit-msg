@@ -1,0 +1,9 @@
+#!/bin/sh
+f="$1"
+[ -f "$f" ] || exit 0
+awk '
+/^Made-with: Cursor$/ { next }
+/^Co-authored-by:/ && /[Cc][Uu][Rr][Ss][Oo][Rr]/ { next }
+{ print }
+' "$f" > "${f}.new" && mv "${f}.new" "$f"
+exit 0

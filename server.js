@@ -7,6 +7,7 @@ const multer = require('multer');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,49 @@ const GITHUB_REPO = process.env.GITHUB_REPO || 'cemxbt/sport';
 const MAX_ATTEMPTS = 5;
 const LOCK_DURATION = 15 * 60 * 1000;
 const SESSION_DURATION = 24 * 60 * 60 * 1000;
+
+const CONTACT_RATE_WINDOW_MS = 60 * 60 * 1000;
+const CONTACT_RATE_MAX = 10;
+const contactRateByIp = new Map();
+
+const DEFAULT_CONTACT_TO = 'iletisim@ibrahimersoran.com,ibrahimersoran@hotmail.com';
+
+function getMailTransport() {
+    const host = process.env.SMTP_HOST;
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
+    if (!host || !user || !pass) return null;
+    const port = parseInt(process.env.SMTP_PORT || '465', 10);
+    const opts = {
+        host,
+        port,
+        auth: { user, pass }
+    };
+    if (port === 465) {
+        opts.secure = true;
+    } else {
+        opts.secure = false;
+        opts.requireTLS = true;
+    }
+    return nodemailer.createTransport(opts);
+}
+
+function sanitizeContactField(str, maxLen) {
+    if (typeof str !== 'string') return '';
+    return str.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f<>]/g, ' ').trim().slice(0, maxLen);
+}
+
+function contactRateAllowed(ip) {
+    const now = Date.now();
+    let rec = contactRateByIp.get(ip);
+    if (!rec || now > rec.until) {
+        contactRateByIp.set(ip, { count: 1, until: now + CONTACT_RATE_WINDOW_MS });
+        return true;
+    }
+    if (rec.count >= CONTACT_RATE_MAX) return false;
+    rec.count += 1;
+    return true;
+}
 
 [UPLOAD_DIR, PUBLIC_DATA_DIR].forEach(dir => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -298,6 +342,67 @@ app.get('/api/auth/check', (req, res) => {
 
     const session = auth.sessions.find(s => s.token === token);
     res.json({ authenticated: !!session });
+});
+
+app.post('/api/contact', async (req, res) => {
+    const ip = getClientIp(req);
+    if (!contactRateAllowed(ip)) {
+        return res.status(429).json({ error: 'Cok fazla gonderim. Lutfen bir saat sonra tekrar deneyin.' });
+    }
+
+    const body = req.body || {};
+    const name = sanitizeContactField(String(body.name || ''), 200);
+    const email = sanitizeContactField(String(body.email || ''), 200);
+    const phone = sanitizeContactField(String(body.phone || ''), 50);
+    const pkg = sanitizeContactField(String(body.package || ''), 200);
+    const message = sanitizeContactField(String(body.message || ''), 5000);
+
+    if (!name || !email) {
+        return res.status(400).json({ error: 'Ad ve e-posta zorunludur.' });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ error: 'Gecersiz e-posta adresi.' });
+    }
+    if (!message || message.length < 3) {
+        return res.status(400).json({ error: 'Lutfen kisa da olsa bir mesaj yazin.' });
+    }
+
+    const transport = getMailTransport();
+    if (!transport) {
+        return res.status(503).json({
+            error: 'E-posta sunucusu yapilandirilmamis. Lutfen site yoneticisiyle iletisime gecin.'
+        });
+    }
+
+    const toRaw = process.env.CONTACT_MAIL_TO || DEFAULT_CONTACT_TO;
+    let toList = toRaw.split(',').map(s => s.trim()).filter(Boolean);
+    if (!toList.length) toList = ['iletisim@ibrahimersoran.com'];
+
+    const fromAddr = process.env.CONTACT_MAIL_FROM || process.env.SMTP_USER;
+    const subject = `Iletisim formu: ${name}`;
+    const text = [
+        `Gonderen: ${name}`,
+        `E-posta: ${email}`,
+        phone ? `Telefon: ${phone}` : null,
+        pkg ? `Paket: ${pkg}` : null,
+        '',
+        'Mesaj:',
+        message
+    ].filter(Boolean).join('\n');
+
+    try {
+        await transport.sendMail({
+            from: `"ibrahimersoran.com" <${fromAddr}>`,
+            to: toList,
+            replyTo: email,
+            subject,
+            text
+        });
+        res.json({ success: true });
+    } catch (err) {
+        console.error('contact mail error', err.message);
+        res.status(500).json({ error: 'E-posta gonderilemedi. Lutfen daha sonra tekrar deneyin.' });
+    }
 });
 
 app.post('/api/auth/change-password', requireAuth, async (req, res) => {

@@ -183,14 +183,14 @@
                 <div class="contact-info" id="contact-info"></div>
                 <form class="contact-form" id="contact-form">
                     <div class="form-row">
-                        <input type="text" placeholder="Adınız Soyadınız" required>
-                        <input type="email" placeholder="E-posta Adresiniz" required>
+                        <input type="text" name="name" placeholder="Adınız Soyadınız" required maxlength="200">
+                        <input type="email" name="email" placeholder="E-posta Adresiniz" required maxlength="200">
                     </div>
-                    <input type="tel" placeholder="Telefon Numaranız">
-                    <select id="contact-select">
+                    <input type="tel" name="phone" placeholder="Telefon Numaranız" maxlength="50">
+                    <select name="package" id="contact-select">
                         <option value="">İlgilendiğiniz Paket</option>
                     </select>
-                    <textarea rows="4" placeholder="Mesajınız"></textarea>
+                    <textarea name="message" rows="4" placeholder="Mesajınız" required maxlength="5000"></textarea>
                     <button type="submit" class="btn btn-primary btn-full">Gönder</button>
                 </form>
             </div>

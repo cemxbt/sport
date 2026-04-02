@@ -12,3 +12,15 @@ services:
         sync: false
       - key: GITHUB_REPO
         value: cemxbt/sport
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: CONTACT_MAIL_TO
+        sync: false
+      - key: CONTACT_MAIL_FROM
+        sync: false
