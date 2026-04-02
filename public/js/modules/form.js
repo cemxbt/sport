@@ -8,9 +8,12 @@ export function initContactForm() {
         const btn = contactForm.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
 
-        const apiBase = typeof window.SITE_API_BASE === 'string'
+        let apiBase = typeof window.SITE_API_BASE === 'string'
             ? window.SITE_API_BASE.replace(/\/$/, '')
             : '';
+        if (!apiBase && /^(www\.)?ibrahimersoran\.com$/i.test(window.location.hostname)) {
+            apiBase = 'https://sport-xmgh.onrender.com';
+        }
         const url = apiBase ? `${apiBase}/api/contact` : '/api/contact';
 
         const fd = new FormData(contactForm);
