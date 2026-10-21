@@ -34,8 +34,10 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          echo "=== PWD ==="
-          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "PWD" -Q "SYST" --list-only >/dev/null || true
+          echo "=== WHERE ==="
+          echo "configured_ip $(getent ahostsv4 "$FTP_HOST" | awk '{print $1; exit}')"
+          echo "domain_ip 46.202.142.111"
+          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --quote "PWD" --list-only "ftp://$FTP_HOST/" | head
           echo "=== REMOTE INDEX BEFORE ==="
           curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -o /tmp/remote-index.html "ftp://$FTP_HOST/index.html"
           wc -c /tmp/remote-index.html
@@ -46,3 +48,8 @@ jobs:
           curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -o /tmp/remote-index-after.html "ftp://$FTP_HOST/index.html"
           wc -c /tmp/remote-index-after.html
           grep -o 'trainer-visual-wrapper\|main.css?v=[0-9]*' /tmp/remote-index-after.html | head
+          echo "sport-live-probe" > /tmp/deploy-probe-2.txt
+          echo "=== PROBE ftp.ibrahimersoran.com ==="
+          curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T /tmp/deploy-probe-2.txt "ftp://ftp.ibrahimersoran.com/deploy-probe-2.txt" -w "code:%{response_code}\n" || echo "domain ftp failed"
+          echo "=== PROBE server ip ==="
+          curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T /tmp/deploy-probe-2.txt "ftp://46.202.142.111/deploy-probe-2.txt" -w "code:%{response_code}\n" || echo "ip ftp failed"
