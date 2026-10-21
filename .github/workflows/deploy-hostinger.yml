@@ -28,36 +28,28 @@ jobs:
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Upload into the directory the domain serves
+      - name: Deploy via FTP
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          live=""
-          for p in public_html domains/ibrahimersoran.com/public_html domains/ibrahimersoran.com; do
-            echo "=== TRY $p ==="
-            if curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -o /tmp/idx.html "ftp://$FTP_HOST/$p/index.html"; then
-              echo "size $(wc -c < /tmp/idx.html)"
-              if grep -q 'Inter:wght' /tmp/idx.html; then
-                live="$p"
-                echo "LIVE $p"
-                break
-              fi
-            else
-              echo "no index"
-            fi
-          done
-          if [ -z "$live" ]; then
-            echo "=== LIST domains/ibrahimersoran.com ==="
-            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/domains/ibrahimersoran.com/" || true
-            echo "=== LIST public_html ==="
-            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --list-only "ftp://$FTP_HOST/public_html/" || true
-            exit 1
-          fi
           cd deploy
-          find . -type f | sed 's|^\./||' | while read -r file; do
-            curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$live/$file" --ftp-create-dirs
-            echo "ok $file"
+          
+          upload_file() {
+            local file="$1"
+            local remote_dir=$(dirname "$file")
+            
+            if [ "$remote_dir" != "." ]; then
+              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD $remote_dir" 2>/dev/null || true
+            fi
+            
+            curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$file" --ftp-create-dirs
+            echo "Uploaded: $file"
+          }
+          
+          find . -type f | sed 's|^\./||' | while read file; do
+            upload_file "$file"
           done
-          echo "uploaded to $live"
+          
+          echo "Deploy completed"
