@@ -67,38 +67,48 @@
         flex-direction: column;
         align-items: stretch;
         min-height: 0;
-        gap: 8px;
-        padding: calc(var(--nav-h) + 12px) 20px 96px;
+        gap: 2px;
+        padding: calc(var(--nav-h) + 4px) 20px calc(88px + env(safe-area-inset-bottom));
     }
 
     .trainer-visual-wrapper {
         order: -1;
-        width: min(280px, 74vw) !important;
-        max-width: 280px !important;
-        margin-inline: auto !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 0 4px !important;
     }
     .trainer-visual-crop {
-        height: 250px !important;
-        -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%) !important;
-        mask-image: linear-gradient(to bottom, #000 70%, transparent 100%) !important;
-        -webkit-mask-composite: source-over !important;
-        mask-composite: add !important;
+        height: 210px !important;
+        -webkit-mask-image:
+            linear-gradient(to right, transparent 0%, #000 16%, #000 78%, transparent 100%),
+            linear-gradient(to bottom, transparent 0%, #000 14%, #000 64%, transparent 100%) !important;
+        mask-image:
+            linear-gradient(to right, transparent 0%, #000 16%, #000 78%, transparent 100%),
+            linear-gradient(to bottom, transparent 0%, #000 14%, #000 64%, transparent 100%) !important;
+        -webkit-mask-composite: source-in !important;
+        mask-composite: intersect !important;
     }
     .trainer-img {
-        object-position: right center !important;
+        object-position: 62% 6% !important;
         transform: none !important;
     }
 
     .hero-content { max-width: none; padding: 0; }
 
-    .hero-brand-name { font-size: 3.15rem; }
-    .hero-role { letter-spacing: 0.22em; margin: 8px 0 12px; }
-    .hero h1 { max-width: none; font-size: 1.45rem; margin-bottom: 10px; }
-    .hero-desc { margin-bottom: 12px; font-size: 0.92rem; }
-    .hero-creds { margin-bottom: 12px; }
+    .hero-brand-name { font-size: 2.7rem; line-height: 0.88; }
+    .hero-role { letter-spacing: 0.16em; margin: 6px 0 8px; font-size: 0.82rem; }
+    .hero h1 { max-width: none; font-size: 1.28rem; margin-bottom: 8px; }
+    .hero-desc { margin-bottom: 10px; font-size: 0.88rem; line-height: 1.45; }
+    .hero-creds { margin-bottom: 10px; gap: 6px; }
     .hero-creds li { font-size: 0.68rem; padding: 5px 7px; }
-    .hero-buttons { flex-direction: row; }
-    .hero-buttons .btn { flex: 1; min-width: 0; }
+    .hero-buttons { flex-direction: row; gap: 10px; }
+    .hero-buttons .btn {
+        flex: 1;
+        min-width: 0;
+        padding: 13px 8px;
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+    }
 
     .about-trainer-img {
         width: min(280px, 74vw);
