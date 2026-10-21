@@ -49,10 +49,10 @@ jobs:
             fi
           done
           if [ -z "$live" ]; then
+            echo "=== LIST domains/ibrahimersoran.com ==="
+            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/domains/ibrahimersoran.com/" || true
             echo "=== LIST public_html ==="
             curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --list-only "ftp://$FTP_HOST/public_html/" || true
-            echo "=== LIST domains ==="
-            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --list-only "ftp://$FTP_HOST/domains/" || true
             exit 1
           fi
           cd deploy
