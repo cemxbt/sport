@@ -28,28 +28,36 @@ jobs:
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Check FTP against the live site
+      - name: Upload into the directory the domain serves
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          echo "=== WHERE ==="
-          echo "configured_ip $(getent ahostsv4 "$FTP_HOST" | awk '{print $1; exit}')"
-          echo "domain_ip 46.202.142.111"
-          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --quote "PWD" --list-only "ftp://$FTP_HOST/" | head
-          echo "=== REMOTE INDEX BEFORE ==="
-          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -o /tmp/remote-index.html "ftp://$FTP_HOST/index.html"
-          wc -c /tmp/remote-index.html
-          grep -o 'trainer-visual-wrapper\|main.css?v=[0-9]*\|Inter:wght' /tmp/remote-index.html | head
-          echo "=== STOR index.html ==="
-          curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T deploy/index.html "ftp://$FTP_HOST/index.html" -w "ftp_code:%{response_code}\n"
-          echo "=== REMOTE INDEX AFTER ==="
-          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -o /tmp/remote-index-after.html "ftp://$FTP_HOST/index.html"
-          wc -c /tmp/remote-index-after.html
-          grep -o 'trainer-visual-wrapper\|main.css?v=[0-9]*' /tmp/remote-index-after.html | head
-          echo "sport-live-probe" > /tmp/deploy-probe-2.txt
-          echo "=== PROBE ftp.ibrahimersoran.com ==="
-          curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T /tmp/deploy-probe-2.txt "ftp://ftp.ibrahimersoran.com/deploy-probe-2.txt" -w "code:%{response_code}\n" || echo "domain ftp failed"
-          echo "=== PROBE server ip ==="
-          curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T /tmp/deploy-probe-2.txt "ftp://46.202.142.111/deploy-probe-2.txt" -w "code:%{response_code}\n" || echo "ip ftp failed"
+          live=""
+          for p in public_html domains/ibrahimersoran.com/public_html domains/ibrahimersoran.com; do
+            echo "=== TRY $p ==="
+            if curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -o /tmp/idx.html "ftp://$FTP_HOST/$p/index.html"; then
+              echo "size $(wc -c < /tmp/idx.html)"
+              if grep -q 'Inter:wght' /tmp/idx.html; then
+                live="$p"
+                echo "LIVE $p"
+                break
+              fi
+            else
+              echo "no index"
+            fi
+          done
+          if [ -z "$live" ]; then
+            echo "=== LIST public_html ==="
+            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --list-only "ftp://$FTP_HOST/public_html/" || true
+            echo "=== LIST domains ==="
+            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --list-only "ftp://$FTP_HOST/domains/" || true
+            exit 1
+          fi
+          cd deploy
+          find . -type f | sed 's|^\./||' | while read -r file; do
+            curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$live/$file" --ftp-create-dirs
+            echo "ok $file"
+          done
+          echo "uploaded to $live"
