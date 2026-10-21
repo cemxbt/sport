@@ -28,28 +28,26 @@ jobs:
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Deploy via FTP
+      - name: Locate web root
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          cd deploy
-          
-          upload_file() {
-            local file="$1"
-            local remote_dir=$(dirname "$file")
-            
-            if [ "$remote_dir" != "." ]; then
-              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD $remote_dir" 2>/dev/null || true
-            fi
-            
-            curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$file" --ftp-create-dirs
-            echo "Uploaded: $file"
+          list_dir() {
+            echo "=== LIST ${1:-/} ==="
+            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" --list-only "ftp://$FTP_HOST/$1" || echo "list failed"
           }
-          
-          find . -type f | sed 's|^\./||' | while read file; do
-            upload_file "$file"
+          list_dir ""
+          list_dir "public_html/"
+          list_dir "domains/"
+          list_dir "domains/ibrahimersoran.com/"
+          list_dir "domains/ibrahimersoran.com/public_html/"
+
+          echo "sport-deploy-probe" > /tmp/deploy-probe.txt
+          for dest in deploy-probe.txt public_html/deploy-probe.txt domains/ibrahimersoran.com/public_html/deploy-probe.txt; do
+            echo "=== PUT $dest ==="
+            curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T /tmp/deploy-probe.txt "ftp://$FTP_HOST/$dest" --ftp-create-dirs && echo OK || echo FAIL
           done
-          
-          echo "Deploy completed"
+          echo "=== HTTP ==="
+          curl -sS -D - "https://ibrahimersoran.com/deploy-probe.txt" || true
