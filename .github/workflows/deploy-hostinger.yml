@@ -40,11 +40,12 @@ jobs:
             local file="$1"
             local remote_dir=$(dirname "$file")
             
+            # Login directory is public_html; the domain serves its parent.
             if [ "$remote_dir" != "." ]; then
-              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD $remote_dir" 2>/dev/null || true
+              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD ../$remote_dir" 2>/dev/null || true
             fi
             
-            curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$file" --ftp-create-dirs
+            curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/../$file" --ftp-create-dirs
             echo "Uploaded: $file"
           }
           
