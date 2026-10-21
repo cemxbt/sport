@@ -71,7 +71,23 @@
         padding: calc(var(--nav-h) + 12px) 20px 96px;
     }
 
-    .trainer-visual-wrapper { order: -1; }
+    .trainer-visual-wrapper {
+        order: -1;
+        width: min(280px, 74vw) !important;
+        max-width: 280px !important;
+        margin-inline: auto !important;
+    }
+    .trainer-visual-crop {
+        height: 250px !important;
+        -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%) !important;
+        mask-image: linear-gradient(to bottom, #000 70%, transparent 100%) !important;
+        -webkit-mask-composite: source-over !important;
+        mask-composite: add !important;
+    }
+    .trainer-img {
+        object-position: right center !important;
+        transform: none !important;
+    }
 
     .hero-content { max-width: none; padding: 0; }
 
@@ -79,10 +95,18 @@
     .hero-role { letter-spacing: 0.22em; margin: 8px 0 12px; }
     .hero h1 { max-width: none; font-size: 1.45rem; margin-bottom: 10px; }
     .hero-desc { margin-bottom: 12px; font-size: 0.92rem; }
-    .hero-creds { margin-bottom: 16px; }
+    .hero-creds { margin-bottom: 12px; }
     .hero-creds li { font-size: 0.68rem; padding: 5px 7px; }
     .hero-buttons { flex-direction: row; }
-    .hero-buttons .btn { flex: 1; }
+    .hero-buttons .btn { flex: 1; min-width: 0; }
+
+    .about-trainer-img {
+        width: min(280px, 74vw);
+        margin-inline: auto;
+        max-height: 380px;
+        object-fit: cover;
+        object-position: right center;
+    }
 
     .hero-stats { grid-template-columns: 1fr; }
     .stat-item { padding: 16px 0; }
@@ -118,7 +142,6 @@
 }
 
 @media (max-width: 480px) {
-    .hero-content { padding-top: 88px; }
     .package-card h3 { font-size: 1.45rem; }
     .price-new { font-size: 2.2rem; }
 }
