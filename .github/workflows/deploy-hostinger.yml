@@ -28,28 +28,21 @@ jobs:
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 
-      - name: Deploy via FTP
+      - name: Check FTP against the live site
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          cd deploy
-          
-          upload_file() {
-            local file="$1"
-            local remote_dir=$(dirname "$file")
-            
-            if [ "$remote_dir" != "." ]; then
-              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD $remote_dir" 2>/dev/null || true
-            fi
-            
-            curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/$file" --ftp-create-dirs
-            echo "Uploaded: $file"
-          }
-          
-          find . -type f | sed 's|^\./||' | while read file; do
-            upload_file "$file"
-          done
-          
-          echo "Deploy completed"
+          echo "=== PWD ==="
+          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "PWD" -Q "SYST" --list-only >/dev/null || true
+          echo "=== REMOTE INDEX BEFORE ==="
+          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -o /tmp/remote-index.html "ftp://$FTP_HOST/index.html"
+          wc -c /tmp/remote-index.html
+          grep -o 'trainer-visual-wrapper\|main.css?v=[0-9]*\|Inter:wght' /tmp/remote-index.html | head
+          echo "=== STOR index.html ==="
+          curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T deploy/index.html "ftp://$FTP_HOST/index.html" -w "ftp_code:%{response_code}\n"
+          echo "=== REMOTE INDEX AFTER ==="
+          curl -sS --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" -o /tmp/remote-index-after.html "ftp://$FTP_HOST/index.html"
+          wc -c /tmp/remote-index-after.html
+          grep -o 'trainer-visual-wrapper\|main.css?v=[0-9]*' /tmp/remote-index-after.html | head
