@@ -6,13 +6,13 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+    scroll-padding-top: calc(var(--nav-h) + 12px);
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -20,14 +20,13 @@ body {
 }
 
 ::selection {
-    background: rgba(139, 195, 74, 0.3);
+    background: var(--red);
     color: #fff;
 }
 
 a {
     text-decoration: none;
     color: inherit;
-    transition: var(--transition);
 }
 
 ul { list-style: none; }
@@ -35,4 +34,13 @@ ul { list-style: none; }
 img {
     max-width: 100%;
     display: block;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
 }

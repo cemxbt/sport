@@ -1,44 +1,36 @@
 .announcement-bar {
-    background: linear-gradient(90deg, #0d0d0d, #111, #0d0d0d);
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    z-index: 1001;
+    background: var(--red);
+    color: #fff;
+    padding: 10px 0;
 }
 
 .announcement-inner {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
-    font-size: 0.84rem;
+    gap: 16px;
     flex-wrap: wrap;
-    letter-spacing: 0.3px;
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.95rem;
 }
 
-.countdown {
-    display: flex;
-    gap: 10px;
-}
+.countdown { display: flex; gap: 8px; }
 
 .countdown-item {
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 0.78rem;
-    color: var(--text-secondary);
+    gap: 4px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .countdown-num {
-    background: var(--primary);
-    color: #0a0a0a;
-    padding: 3px 10px;
-    border-radius: 4px;
+    background: #000;
+    color: #fff;
+    padding: 2px 7px;
+    font-family: var(--font-display);
     font-weight: 800;
-    font-size: 0.82rem;
-    min-width: 30px;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
 }

@@ -1,74 +1,58 @@
-.videos {
-    background: var(--bg-primary);
-}
+.videos { background: var(--black); }
 
 .videos-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 12px;
 }
 
 .video-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background: transparent;
+    color: #fff;
+    border: 0;
+    border-radius: 0;
     overflow: hidden;
     cursor: pointer;
-    transition: var(--transition);
-}
-
-.video-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
-    border-color: var(--border-hover);
 }
 
 .video-thumb {
     height: 160px;
-    background: linear-gradient(135deg, #111, #1a1a1a);
+    background: #161616;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.video-thumb::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, var(--bg-card), transparent 50%);
-}
+.video-thumb::after { content: none; }
 
 .video-thumb i {
-    font-size: 2.8rem;
-    color: var(--primary);
-    opacity: 0.4;
-    transition: var(--transition);
-    position: relative;
-    z-index: 1;
+    font-size: 2rem;
+    color: var(--red);
+    opacity: 1;
+    transition: transform var(--transition);
 }
 
-.video-card:hover .video-thumb i {
-    opacity: 0.9;
-    transform: scale(1.1);
-}
+.video-card:hover .video-thumb i { transform: scale(1.08); }
 
-.video-info {
-    padding: 16px;
-}
+.video-info { padding: 12px 0 0; }
 
 .video-date {
-    font-size: 0.72rem;
-    color: var(--text-muted);
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .video-info h4 {
-    font-size: 0.86rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
     font-weight: 700;
-    line-height: 1.4;
-    letter-spacing: -0.1px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1;
 }

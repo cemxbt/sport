@@ -2,43 +2,41 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 36px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.92rem;
+    padding: 15px 28px;
+    border-radius: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: var(--transition);
-    border: none;
+    transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+    border: 1.5px solid transparent;
     gap: 8px;
-    font-family: inherit;
-    letter-spacing: 0.3px;
-    position: relative;
-    overflow: hidden;
+    line-height: 1;
 }
 
 .btn-primary {
-    background: var(--primary);
-    color: #0a0a0a;
-    box-shadow: 0 4px 20px rgba(139, 195, 74, 0.3);
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
 }
 
 .btn-primary:hover {
-    background: var(--primary-light);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(139, 195, 74, 0.4);
+    background: var(--red-deep);
+    border-color: var(--red-deep);
 }
 
 .btn-outline {
     background: transparent;
-    color: var(--text-primary);
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    color: inherit;
+    border-color: currentColor;
 }
 
 .btn-outline:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: translateY(-2px);
-    background: rgba(139, 195, 74, 0.05);
+    background: #fff;
+    color: var(--black);
+    border-color: #fff;
 }
 
 .btn-full { width: 100%; }
@@ -46,25 +44,21 @@
 .btn-small {
     display: inline-flex;
     align-items: center;
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.78rem;
-    background: var(--primary);
-    color: #0a0a0a;
+    padding: 8px 16px;
+    border-radius: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--red);
+    color: #fff;
     cursor: pointer;
-    transition: var(--transition);
     border: none;
     white-space: nowrap;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
 }
 
-.btn-small:hover {
-    background: var(--primary-light);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-green);
-}
+.btn-small:hover { background: var(--red-deep); }
 
 .text-center { text-align: center; }
 .mt-3 { margin-top: 2.5rem; }

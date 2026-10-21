@@ -1,51 +1,48 @@
-.social-media {
-    background: var(--bg-secondary);
-}
+.social-media { background: var(--black); }
 
 .social-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 12px;
 }
 
 .social-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 36px 24px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    transition: var(--transition);
+    align-items: flex-start;
+    gap: 10px;
+    min-height: 160px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    background: transparent;
+    transition: background var(--transition), color var(--transition);
 }
 
 .social-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
 }
 
-.social-card i {
-    font-size: 2.2rem;
-}
+.social-card i { font-size: 1.4rem; color: var(--red); }
+.social-card:hover i { color: #fff; }
 
 .social-card strong {
-    font-size: 0.95rem;
-    letter-spacing: 0.2px;
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 0.9;
 }
 
 .social-card span {
-    font-size: 0.82rem;
-    color: var(--text-muted);
+    font-family: var(--font-display);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
 }
 
-.social-card.instagram:hover { border-color: #e1306c; }
-.social-card.instagram i { color: #e1306c; }
-.social-card.youtube:hover { border-color: #ff0000; }
-.social-card.youtube i { color: #ff0000; }
-.social-card.facebook:hover { border-color: #1877f2; }
-.social-card.facebook i { color: #1877f2; }
-.social-card.tiktok:hover { border-color: #fff; }
-.social-card.tiktok i { color: #fff; }
-.social-card.linkedin:hover { border-color: #0a66c2; }
-.social-card.linkedin i { color: #0a66c2; }
+.social-card:hover span { color: #fff; }

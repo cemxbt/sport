@@ -185,11 +185,11 @@ const CALCS = {
             const mhr = 220 - v.age;
             const hrr = mhr - v.rhr;
             const zones = [
-                { name: 'Bölge 1 - Isınma', min: 0.5, max: 0.6, color: '#4CAF50' },
-                { name: 'Bölge 2 - Yağ Yakımı', min: 0.6, max: 0.7, color: '#8BC34A' },
-                { name: 'Bölge 3 - Aerobik', min: 0.7, max: 0.8, color: '#FFC107' },
-                { name: 'Bölge 4 - Anaerobik', min: 0.8, max: 0.9, color: '#FF9800' },
-                { name: 'Bölge 5 - Maksimum', min: 0.9, max: 1.0, color: '#f44336' }
+                { name: 'Bölge 1 - Isınma', min: 0.5, max: 0.6, color: '#6A6A6A' },
+                { name: 'Bölge 2 - Yağ Yakımı', min: 0.6, max: 0.7, color: '#A33A3E' },
+                { name: 'Bölge 3 - Aerobik', min: 0.7, max: 0.8, color: '#C41218' },
+                { name: 'Bölge 4 - Anaerobik', min: 0.8, max: 0.9, color: '#ED1C24' },
+                { name: 'Bölge 5 - Maksimum', min: 0.9, max: 1.0, color: '#111111' }
             ];
             let zonesHtml = zones.map(z => {
                 const lo = Math.round(hrr * z.min + v.rhr);

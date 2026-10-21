@@ -1,9 +1,7 @@
-.video-call {
-    background: var(--bg-secondary);
-}
+.video-call { background: var(--black); }
 
-.video-call-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+.video-call .package-card:not(.featured) .btn-outline:hover {
+    background: var(--black);
+    color: #fff;
+    border-color: var(--black);
 }

@@ -1,49 +1,82 @@
 .container {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 28px;
 }
 
 section {
-    padding: 100px 0;
+    padding: 96px 0;
     position: relative;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 64px;
+    margin-bottom: 56px;
 }
 
 .section-tag {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(139, 195, 74, 0.08);
-    border: 1px solid rgba(139, 195, 74, 0.12);
-    border-radius: 4px;
-    font-size: 0.72rem;
-    color: var(--primary);
-    font-weight: 700;
+    display: block;
+    margin-bottom: 12px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    color: var(--red);
 }
 
 .section-header h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.6rem;
+    font-family: var(--font-display);
     font-weight: 800;
-    margin-bottom: 16px;
-    letter-spacing: -0.5px;
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.section-header h2::after {
+    content: "";
+    display: block;
+    width: 52px;
+    height: 3px;
+    margin: 18px auto 0;
+    background: var(--red);
 }
 
 .section-header p {
     color: var(--text-secondary);
-    font-size: 1.02rem;
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.7;
+    font-size: 1.05rem;
+    max-width: 38rem;
+    margin: 18px auto 0;
+    line-height: 1.65;
 }
 
 .gradient-text {
-    color: var(--primary);
+    color: var(--red);
+}
+
+.on-dark,
+.video-call,
+.social-media,
+.videos,
+.contact,
+.footer {
+    color: #F4F4F2;
+}
+
+.on-dark .section-header h2,
+.video-call .section-header h2,
+.social-media .section-header h2,
+.videos .section-header h2,
+.contact .section-header h2 {
+    color: #fff;
+}
+
+.on-dark .section-header p,
+.video-call .section-header p,
+.social-media .section-header p,
+.videos .section-header p,
+.contact .section-header p {
+    color: rgba(255, 255, 255, 0.72);
 }

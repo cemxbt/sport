@@ -73,12 +73,6 @@ export async function initDataRenderer() {
     renderTransformations(transformations);
     renderFaq(faq);
     renderVideos(videos);
-
-    if (dataFromAPI && window.SITE_API_BASE) {
-        document.querySelectorAll('.hero-trainer-img, .about-trainer-img').forEach(img => {
-            img.src = `${window.SITE_API_BASE}/assets/images/trainer.png?v=${Date.now()}`;
-        });
-    }
 }
 
 function renderConfig(c) {

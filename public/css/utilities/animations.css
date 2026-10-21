@@ -1,10 +1,40 @@
 .fade-in {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(18px);
     transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
 .fade-in.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+}
+
+@keyframes ie-rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: none; }
+}
+
+.hero-brand-name,
+.hero-role,
+.hero h1,
+.hero-desc,
+.hero-buttons {
+    animation: ie-rise 0.8s ease both;
+}
+
+.hero-brand-name { animation-delay: 0.08s; }
+.hero-role { animation-delay: 0.16s; }
+.hero h1 { animation-delay: 0.24s; }
+.hero-desc { animation-delay: 0.32s; }
+.hero-buttons { animation-delay: 0.4s; }
+
+.motto-script {
+    animation: ie-rise 0.8s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }

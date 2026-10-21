@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İbrahim Ersoran | Fitness Eğitmeni</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>İbrahim Ersoran | Personal Trainer</title>
+    <link rel="icon" href="assets/images/mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/main.css?v=15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
     <nav class="navbar" id="navbar">
         <div class="container nav-inner">
-            <a href="#" class="logo">İbrahim <span>Ersoran</span></a>
+            <a href="#hero" class="logo" aria-label="İbrahim Ersoran">
+                <img src="assets/images/mark-on-dark.svg" alt="" width="40" height="40">
+                <span class="logo-type">
+                    <span class="logo-name">İbrahim Ersoran</span>
+                    <span class="logo-role">Personal Trainer</span>
+                </span>
+            </a>
             <button class="nav-toggle" id="nav-toggle" aria-label="Menüyü aç">
                 <span></span><span></span><span></span>
             </button>
@@ -32,25 +39,44 @@
 
     <section class="hero" id="hero">
         <div class="hero-bg"></div>
-        <div class="container hero-content">
-            <div class="hero-text">
-                <p class="hero-subtitle" id="hero-subtitle"></p>
-                <h1 id="hero-title"></h1>
-                <p class="hero-desc" id="hero-desc"></p>
-                <div class="hero-buttons">
-                    <a href="#paketler" class="btn btn-primary">Paketleri İncele</a>
-                    <a href="#degisimler" class="btn btn-outline">Değişimleri Gör</a>
-                </div>
-                <div class="hero-stats" id="hero-stats"></div>
-            </div>
-            <div class="hero-image">
-                <img src="assets/images/trainer.png" alt="İbrahim Ersoran - Fitness Eğitmeni" class="hero-trainer-img">
+        <div class="trainer-visual-wrapper">
+            <div class="trainer-visual-crop">
+                <img src="assets/images/trainer-hero.png?v=6" alt="İbrahim Ersoran" class="trainer-img" />
+                <div class="trainer-red-glow"></div>
             </div>
         </div>
-        <div class="hero-wave">
-            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-                <path d="M0,60 C360,120 720,0 1440,60 L1440,120 L0,120 Z" fill="var(--bg-primary)"/>
-            </svg>
+        <div class="hero-content">
+            <p class="hero-brand-name">İbrahim Ersoran</p>
+            <p class="hero-role">Personal Trainer</p>
+            <p class="hero-subtitle" id="hero-subtitle"></p>
+            <h1 id="hero-title"></h1>
+            <p class="hero-desc" id="hero-desc"></p>
+            <ul class="hero-creds">
+                <li>TVGFBF III. Kademe Antrenör</li>
+                <li>EQF Level 4 Personal Trainer</li>
+                <li>Corrective Exercise Specialist</li>
+                <li>FNS</li>
+                <li>Functional Training Specialist</li>
+                <li>Egzersize Dayalı Hormon ve Optimizasyonu</li>
+            </ul>
+            <div class="hero-buttons">
+                <a href="#paketler" class="btn btn-primary">Paketleri İncele</a>
+                <a href="#iletisim" class="btn btn-outline">İletişime Geç</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="proof" aria-label="Sonuçlar">
+        <div class="container">
+            <div class="hero-stats" id="hero-stats"></div>
+        </div>
+    </section>
+
+    <section class="motto" aria-label="Motto">
+        <div class="container">
+            <p class="motto-kicker">Motto</p>
+            <p class="motto-script">Asla Durma!</p>
+            <p class="motto-text">Gerçek bir antrenman, yalnızca kasları değil; zihni ve iradeyi eğitmekle başlar.</p>
         </div>
     </section>
 
@@ -129,9 +155,7 @@
     <section class="about" id="hakkimda">
         <div class="container">
             <div class="about-content">
-                <div class="about-image">
-                    <img src="assets/images/trainer.png" alt="İbrahim Ersoran - Fitness Eğitmeni" class="about-trainer-img">
-                </div>
+                <img src="assets/images/trainer.png?v=4" alt="İbrahim Ersoran - Fitness Eğitmeni" class="about-trainer-img">
                 <div class="about-text" id="about-text">
                     <span class="section-tag">Hakkımda</span>
                     <h2 id="about-name"></h2>
@@ -201,7 +225,13 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="#" class="logo">İbrahim <span>Ersoran</span></a>
+                    <a href="#hero" class="logo" aria-label="İbrahim Ersoran">
+                        <img src="assets/images/mark-on-dark.svg" alt="" width="40" height="40">
+                        <span class="logo-type">
+                            <span class="logo-name">İbrahim Ersoran</span>
+                            <span class="logo-role">Personal Trainer</span>
+                        </span>
+                    </a>
                     <p id="footer-description"></p>
                     <div class="footer-social" id="footer-social"></div>
                 </div>

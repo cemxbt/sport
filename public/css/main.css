@@ -7,7 +7,7 @@
 
 @import url('components/announcement.css');
 @import url('components/navbar.css');
-@import url('components/hero.css');
+@import url('components/hero.css?v=15');
 @import url('components/packages.css');
 @import url('components/details.css');
 @import url('components/video-call.css');
@@ -22,4 +22,4 @@
 @import url('components/footer.css');
 @import url('components/floating.css');
 
-@import url('responsive.css');
+@import url('responsive.css?v=15');
