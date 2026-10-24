@@ -130,7 +130,7 @@
       "oldPrice": null,
       "price": "2000₺",
       "discount": null,
-      "featured": false,
+      "featured": true,
       "badge": null,
       "features": [
         {
