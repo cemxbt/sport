@@ -150,7 +150,16 @@
       "discount": "10",
       "badge": null,
       "featured": true,
-      "features": [],
+      "features": [
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel beslenme programı"
+        },
+        {
+          "icon": "fas fa-check",
+          "text": "Kişiye özel antrenman programı"
+        }
+      ],
       "id": 7
     }
   ],
