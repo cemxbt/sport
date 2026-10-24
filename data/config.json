@@ -36,7 +36,82 @@
         "value": "%95",
         "label": "Memnuniyet"
       }
-    ]
+    ],
+    "credentials": [
+      "TVGFBF III. Kademe Antrenör",
+      "EQF Level 4 Personal Trainer",
+      "Corrective Exercise Specialist",
+      "FNS",
+      "Functional Training Specialist",
+      "Egzersize Dayalı Hormon ve Optimizasyonu"
+    ],
+    "primaryCta": "Paketleri İncele",
+    "secondaryCta": "İletişime Geç"
+  },
+  "brand": {
+    "name": "İbrahim Ersoran",
+    "role": "Personal Trainer"
+  },
+  "motto": {
+    "kicker": "Motto",
+    "script": "Asla Durma!",
+    "text": "Gerçek bir antrenman, yalnızca kasları değil; zihni ve iradeyi eğitmekle başlar."
+  },
+  "sections": {
+    "packages": {
+      "nav": "Paketler",
+      "tag": "Paketler",
+      "title": "Sana Uygun Paketi Seç",
+      "text": "Kişiye özel hazırlanmış antrenman ve beslenme programlarıyla hedeflerinize vakit kaybetmeden ulaşın"
+    },
+    "details": {
+      "tag": "Detaylar",
+      "title": "Paket İçerikleri"
+    },
+    "videoCall": {
+      "nav": "Görüntülü Görüşme",
+      "tag": "Yeni",
+      "title": "Görüntülü Görüşme Paketleri",
+      "text": "İbrahim Ersoran ile birebir görüntülü görüşme imkanı"
+    },
+    "transformations": {
+      "nav": "Değişimler",
+      "tag": "Değişimler",
+      "title": "Öğrenci Değişimleri",
+      "text": "İbrahim Ersoran ile başarı hikayeleri"
+    },
+    "blog": {
+      "nav": "Blog",
+      "tag": "Blog",
+      "title": "Son Yazılar"
+    },
+    "calculators": {
+      "nav": "Hesaplayıcılar",
+      "tag": "Araçlar",
+      "title": "Hesaplayıcılar"
+    },
+    "about": {
+      "nav": "Hakkımda",
+      "tag": "Hakkımda"
+    },
+    "social": {
+      "tag": "Takip Et",
+      "title": "Sosyal Medya"
+    },
+    "videos": {
+      "tag": "Video",
+      "title": "Son Videolar"
+    },
+    "faq": {
+      "tag": "S.S.S",
+      "title": "Sıkça Sorulan Sorular"
+    },
+    "contact": {
+      "nav": "İletişim",
+      "tag": "İletişim",
+      "title": "Bizimle İletişime Geçin",
+      "text": "Sorularınız veya paket satın alma talepleriniz için bize ulaşın"
+    }
   },
   "about": {
     "name": "İbrahim Ersoran",
@@ -85,6 +160,7 @@
   },
   "footer": {
     "description": "Kişiye özel antrenman ve beslenme programlarıyla hedeflerinize ulaşın.",
+    "linksTitle": "Önemli Bilgiler",
     "copyright": "2026 İbrahim Ersoran. Tüm hakları saklıdır.",
     "legalLinks": [
       {

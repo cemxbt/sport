@@ -129,6 +129,13 @@ async function loadConfig() {
     f.hero_title.value = c.hero?.title || '';
     f.hero_highlight.value = c.hero?.titleHighlight || '';
     f.hero_description.value = c.hero?.description || '';
+    f.hero_primary_cta.value = c.hero?.primaryCta || '';
+    f.hero_secondary_cta.value = c.hero?.secondaryCta || '';
+
+    const credsEl = document.getElementById('creds-container');
+    credsEl.innerHTML = '';
+    const credentials = Array.isArray(c.hero?.credentials) ? c.hero.credentials : [];
+    credentials.forEach(text => { credsEl.appendChild(credRow(text)); });
 
     const statsEl = document.getElementById('stats-container');
     statsEl.innerHTML = '';
@@ -169,6 +176,15 @@ async function loadConfig() {
     const ff = document.getElementById('form-footer');
     ff.footer_description.value = c.footer?.description || '';
     ff.footer_copyright.value = c.footer?.copyright || '';
+
+    const fcopy = document.getElementById('form-copy');
+    fcopy.brand_name.value = c.brand?.name || '';
+    fcopy.brand_role.value = c.brand?.role || '';
+    fcopy.motto_kicker.value = c.motto?.kicker || '';
+    fcopy.motto_script.value = c.motto?.script || '';
+    fcopy.motto_text.value = c.motto?.text || '';
+    fcopy.footer_links_title.value = c.footer?.linksTitle || '';
+    renderSectionFields(c.sections || {});
     const legalEl = document.getElementById('legal-links-container');
     legalEl.innerHTML = '';
     (c.footer?.legalLinks || []).forEach(l => {
@@ -185,6 +201,57 @@ document.getElementById('add-description').addEventListener('click', () => {
 document.getElementById('add-badge').addEventListener('click', () => {
     const el = document.getElementById('about-badges');
     el.innerHTML += `<div class="removable-row"><div class="form-group"><label>İkon</label><input type="text" class="badge-icon" value="fas fa-star"></div><div class="form-group"><label>Metin</label><input type="text" class="badge-text" value=""></div><button type="button" class="btn-remove-row" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button></div>`;
+});
+
+function credRow(value) {
+    const row = document.createElement('div');
+    row.className = 'removable-row';
+    row.innerHTML = `<div class="form-group"><label>Sertifika</label><input type="text" class="cred-text"></div><button type="button" class="btn-remove-row"><i class="fas fa-trash"></i></button>`;
+    row.querySelector('.cred-text').value = value || '';
+    row.querySelector('.btn-remove-row').addEventListener('click', () => row.remove());
+    return row;
+}
+
+const PAGE_SECTIONS = [
+    ['packages', 'Paketler', true],
+    ['details', 'Paket içerikleri', false],
+    ['videoCall', 'Görüntülü görüşme', true],
+    ['transformations', 'Değişimler', true],
+    ['blog', 'Blog', false],
+    ['calculators', 'Hesaplayıcılar', false],
+    ['about', 'Hakkımda', false],
+    ['social', 'Sosyal medya', false],
+    ['videos', 'Videolar', false],
+    ['faq', 'Sıkça sorulan sorular', false],
+    ['contact', 'İletişim', true]
+];
+
+function renderSectionFields(sections) {
+    const el = document.getElementById('sections-container');
+    el.innerHTML = '';
+    PAGE_SECTIONS.forEach(([key, label, hasText]) => {
+        const section = sections[key] || {};
+        const block = document.createElement('div');
+        block.className = 'section-fields';
+        block.dataset.section = key;
+        block.innerHTML = `<h3>${label}</h3>
+            <div class="form-row">
+                <div class="form-group"><label>Menü</label><input type="text" class="section-nav"></div>
+                <div class="form-group"><label>Etiket</label><input type="text" class="section-tag"></div>
+            </div>
+            <div class="form-group"><label>Başlık</label><input type="text" class="section-title"></div>
+            ${hasText ? '<div class="form-group"><label>Açıklama</label><textarea class="section-text" rows="2"></textarea></div>' : ''}`;
+        block.querySelector('.section-nav').value = section.nav || '';
+        block.querySelector('.section-tag').value = section.tag || '';
+        block.querySelector('.section-title').value = section.title || '';
+        const text = block.querySelector('.section-text');
+        if (text) text.value = section.text || '';
+        el.appendChild(block);
+    });
+}
+
+document.getElementById('add-cred').addEventListener('click', () => {
+    document.getElementById('creds-container').appendChild(credRow(''));
 });
 
 document.getElementById('add-stat').addEventListener('click', () => {
@@ -224,10 +291,14 @@ document.getElementById('form-hero').addEventListener('submit', async e => {
     const f = e.target;
     configData.announcement = { text: f.announcement_text.value, countdownDays: parseInt(f.announcement_days.value) };
     configData.hero = {
+        ...configData.hero,
         subtitle: f.hero_subtitle.value,
         title: f.hero_title.value,
         titleHighlight: f.hero_highlight.value,
         description: f.hero_description.value,
+        primaryCta: f.hero_primary_cta.value,
+        secondaryCta: f.hero_secondary_cta.value,
+        credentials: [...document.querySelectorAll('#creds-container .cred-text')].map(input => input.value.trim()).filter(Boolean),
         stats: [...document.querySelectorAll('#stats-container .removable-row')].map(r => ({
             value: r.querySelector('.stat-val').value,
             label: r.querySelector('.stat-lbl').value
@@ -701,6 +772,7 @@ document.getElementById('form-footer').addEventListener('submit', async e => {
     e.preventDefault();
     const f = e.target;
     configData.footer = {
+        ...configData.footer,
         description: f.footer_description.value,
         copyright: f.footer_copyright.value,
         legalLinks: [...document.querySelectorAll('#legal-links-container .removable-row')].map(r => ({
@@ -710,6 +782,27 @@ document.getElementById('form-footer').addEventListener('submit', async e => {
     };
     await API.put('/api/config', configData);
     toast('Footer kaydedildi');
+});
+
+document.getElementById('form-copy').addEventListener('submit', async e => {
+    e.preventDefault();
+    const f = e.target;
+    configData.brand = { name: f.brand_name.value, role: f.brand_role.value };
+    configData.motto = { kicker: f.motto_kicker.value, script: f.motto_script.value, text: f.motto_text.value };
+    configData.footer = { ...configData.footer, linksTitle: f.footer_links_title.value };
+    configData.sections = {};
+    document.querySelectorAll('#sections-container .section-fields').forEach(block => {
+        const section = {
+            nav: block.querySelector('.section-nav').value,
+            tag: block.querySelector('.section-tag').value,
+            title: block.querySelector('.section-title').value
+        };
+        const text = block.querySelector('.section-text');
+        if (text) section.text = text.value;
+        configData.sections[block.dataset.section] = section;
+    });
+    await API.put('/api/config', configData);
+    toast('Sayfa metinleri kaydedildi');
 });
 
 document.getElementById('btn-logout').addEventListener('click', async () => {

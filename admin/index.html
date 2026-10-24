@@ -95,6 +95,7 @@
                     <button class="tab-btn" data-tab="tab-contact">İletişim</button>
                     <button class="tab-btn" data-tab="tab-social">Sosyal Medya</button>
                     <button class="tab-btn" data-tab="tab-footer">Footer</button>
+                    <button class="tab-btn" data-tab="tab-copy">Sayfa Metinleri</button>
                     <button class="tab-btn" data-tab="tab-security">Güvenlik</button>
                 </div>
 
@@ -227,6 +228,19 @@
                             <label>Açıklama</label>
                             <textarea name="hero_description" rows="3"></textarea>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Birinci buton</label>
+                                <input type="text" name="hero_primary_cta">
+                            </div>
+                            <div class="form-group">
+                                <label>İkinci buton</label>
+                                <input type="text" name="hero_secondary_cta">
+                            </div>
+                        </div>
+                        <h3>Sertifikalar</h3>
+                        <div id="creds-container"></div>
+                        <button type="button" class="btn-add-small" id="add-cred"><i class="fas fa-plus"></i> Sertifika Ekle</button>
                         <h3>İstatistikler</h3>
                         <div id="stats-container"></div>
                         <button type="button" class="btn-add-small" id="add-stat"><i class="fas fa-plus"></i> İstatistik Ekle</button>
@@ -306,6 +320,42 @@
                         <h3>Yasal Linkler</h3>
                         <div id="legal-links-container"></div>
                         <button type="button" class="btn-add-small" id="add-legal-link"><i class="fas fa-plus"></i> Link Ekle</button>
+                        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="tab-copy">
+                    <form id="form-copy" class="admin-form">
+                        <h3>Marka</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>İsim</label>
+                                <input type="text" name="brand_name">
+                            </div>
+                            <div class="form-group">
+                                <label>Rol</label>
+                                <input type="text" name="brand_role">
+                            </div>
+                        </div>
+                        <h3>Motto</h3>
+                        <div class="form-group">
+                            <label>Üst yazı</label>
+                            <input type="text" name="motto_kicker">
+                        </div>
+                        <div class="form-group">
+                            <label>Motto</label>
+                            <input type="text" name="motto_script">
+                        </div>
+                        <div class="form-group">
+                            <label>Açıklama</label>
+                            <textarea name="motto_text" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Footer bilgi başlığı</label>
+                            <input type="text" name="footer_links_title">
+                        </div>
+                        <h3>Bölüm başlıkları</h3>
+                        <div id="sections-container"></div>
                         <button type="submit" class="btn-save"><i class="fas fa-save"></i> Kaydet</button>
                     </form>
                 </div>
@@ -414,6 +464,6 @@
     <!-- Toast -->
     <div class="toast-container" id="toast-container"></div>
 
-    <script src="js/admin.js?v=2"></script>
+    <script src="js/admin.js?v=3"></script>
 </body>
 </html>

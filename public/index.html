@@ -18,21 +18,21 @@
             <a href="#hero" class="logo" aria-label="İbrahim Ersoran">
                 <img src="assets/images/mark-on-dark.svg" alt="" width="40" height="40">
                 <span class="logo-type">
-                    <span class="logo-name">İbrahim Ersoran</span>
-                    <span class="logo-role">Personal Trainer</span>
+                    <span class="logo-name js-brand-name">İbrahim Ersoran</span>
+                    <span class="logo-role js-brand-role">Personal Trainer</span>
                 </span>
             </a>
             <button class="nav-toggle" id="nav-toggle" aria-label="Menüyü aç">
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#paketler">Paketler</a></li>
-                <li><a href="#degisimler">Değişimler</a></li>
-                <li><a href="#goruntulu">Görüntülü Görüşme</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#hesaplayicilar">Hesaplayıcılar</a></li>
-                <li><a href="#hakkimda">Hakkımda</a></li>
-                <li><a href="#iletisim">İletişim</a></li>
+                <li><a href="#paketler" data-nav="packages">Paketler</a></li>
+                <li><a href="#degisimler" data-nav="transformations">Değişimler</a></li>
+                <li><a href="#goruntulu" data-nav="videoCall">Görüntülü Görüşme</a></li>
+                <li><a href="#blog" data-nav="blog">Blog</a></li>
+                <li><a href="#hesaplayicilar" data-nav="calculators">Hesaplayıcılar</a></li>
+                <li><a href="#hakkimda" data-nav="about">Hakkımda</a></li>
+                <li><a href="#iletisim" data-nav="contact">İletişim</a></li>
             </ul>
         </div>
     </nav>
@@ -46,12 +46,12 @@
             </div>
         </div>
         <div class="hero-content">
-            <p class="hero-brand-name">İbrahim Ersoran</p>
-            <p class="hero-role">Personal Trainer</p>
+            <p class="hero-brand-name js-brand-name">İbrahim Ersoran</p>
+            <p class="hero-role js-brand-role">Personal Trainer</p>
             <p class="hero-subtitle" id="hero-subtitle"></p>
             <h1 id="hero-title"></h1>
             <p class="hero-desc" id="hero-desc"></p>
-            <ul class="hero-creds">
+            <ul class="hero-creds" id="hero-creds">
                 <li>TVGFBF III. Kademe Antrenör</li>
                 <li>EQF Level 4 Personal Trainer</li>
                 <li>Corrective Exercise Specialist</li>
@@ -60,8 +60,8 @@
                 <li>Egzersize Dayalı Hormon ve Optimizasyonu</li>
             </ul>
             <div class="hero-buttons">
-                <a href="#paketler" class="btn btn-primary">Paketleri İncele</a>
-                <a href="#iletisim" class="btn btn-outline">İletişime Geç</a>
+                <a href="#paketler" class="btn btn-primary" id="hero-cta-primary">Paketleri İncele</a>
+                <a href="#iletisim" class="btn btn-outline" id="hero-cta-secondary">İletişime Geç</a>
             </div>
         </div>
     </section>
@@ -74,18 +74,18 @@
 
     <section class="motto" aria-label="Motto">
         <div class="container">
-            <p class="motto-kicker">Motto</p>
-            <p class="motto-script">Asla Durma!</p>
-            <p class="motto-text">Gerçek bir antrenman, yalnızca kasları değil; zihni ve iradeyi eğitmekle başlar.</p>
+            <p class="motto-kicker" id="motto-kicker">Motto</p>
+            <p class="motto-script" id="motto-script">Asla Durma!</p>
+            <p class="motto-text" id="motto-text">Gerçek bir antrenman, yalnızca kasları değil; zihni ve iradeyi eğitmekle başlar.</p>
         </div>
     </section>
 
     <section class="packages" id="paketler">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Paketler</span>
-                <h2>Sana Uygun Paketi Seç</h2>
-                <p>Kişiye özel hazırlanmış antrenman ve beslenme programlarıyla hedeflerinize vakit kaybetmeden ulaşın</p>
+                <span class="section-tag" id="section-packages-tag">Paketler</span>
+                <h2 id="section-packages-title">Sana Uygun Paketi Seç</h2>
+                <p id="section-packages-text">Kişiye özel hazırlanmış antrenman ve beslenme programlarıyla hedeflerinize vakit kaybetmeden ulaşın</p>
             </div>
             <div class="packages-grid" id="packages-grid"></div>
         </div>
@@ -94,8 +94,8 @@
     <section class="package-details">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Detaylar</span>
-                <h2>Paket İçerikleri</h2>
+                <span class="section-tag" id="section-details-tag">Detaylar</span>
+                <h2 id="section-details-title">Paket İçerikleri</h2>
             </div>
             <div class="details-grid" id="details-grid"></div>
         </div>
@@ -104,9 +104,9 @@
     <section class="video-call" id="goruntulu">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Yeni</span>
-                <h2>Görüntülü Görüşme Paketleri</h2>
-                <p>İbrahim Ersoran ile birebir görüntülü görüşme imkanı</p>
+                <span class="section-tag" id="section-videoCall-tag">Yeni</span>
+                <h2 id="section-videoCall-title">Görüntülü Görüşme Paketleri</h2>
+                <p id="section-videoCall-text">İbrahim Ersoran ile birebir görüntülü görüşme imkanı</p>
             </div>
             <div class="video-call-grid" id="videocall-grid"></div>
         </div>
@@ -115,9 +115,9 @@
     <section class="transformations" id="degisimler">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Değişimler</span>
-                <h2>Öğrenci Değişimleri</h2>
-                <p>İbrahim Ersoran ile başarı hikayeleri</p>
+                <span class="section-tag" id="section-transformations-tag">Değişimler</span>
+                <h2 id="section-transformations-title">Öğrenci Değişimleri</h2>
+                <p id="section-transformations-text">İbrahim Ersoran ile başarı hikayeleri</p>
             </div>
             <div class="transformations-grid" id="transformations-grid"></div>
         </div>
@@ -126,8 +126,8 @@
     <section class="blog" id="blog">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Blog</span>
-                <h2>Son Yazılar</h2>
+                <span class="section-tag" id="section-blog-tag">Blog</span>
+                <h2 id="section-blog-title">Son Yazılar</h2>
             </div>
             <div class="blog-grid" id="blog-grid"></div>
         </div>
@@ -136,8 +136,8 @@
     <section class="calculators" id="hesaplayicilar">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Araçlar</span>
-                <h2>Hesaplayıcılar</h2>
+                <span class="section-tag" id="section-calculators-tag">Araçlar</span>
+                <h2 id="section-calculators-title">Hesaplayıcılar</h2>
             </div>
             <div class="calc-grid">
                 <div class="calc-card"><i class="fas fa-fire"></i><span>Günlük Kalori</span></div>
@@ -157,7 +157,7 @@
             <div class="about-content">
                 <img src="assets/images/trainer.png?v=4" alt="İbrahim Ersoran - Fitness Eğitmeni" class="about-trainer-img">
                 <div class="about-text" id="about-text">
-                    <span class="section-tag">Hakkımda</span>
+                    <span class="section-tag" id="section-about-tag">Hakkımda</span>
                     <h2 id="about-name"></h2>
                     <div id="about-descriptions"></div>
                     <div class="about-badges" id="about-badges"></div>
@@ -169,8 +169,8 @@
     <section class="social-media">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Takip Et</span>
-                <h2>Sosyal Medya</h2>
+                <span class="section-tag" id="section-social-tag">Takip Et</span>
+                <h2 id="section-social-title">Sosyal Medya</h2>
             </div>
             <div class="social-grid" id="social-grid"></div>
         </div>
@@ -179,8 +179,8 @@
     <section class="videos">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Video</span>
-                <h2>Son Videolar</h2>
+                <span class="section-tag" id="section-videos-tag">Video</span>
+                <h2 id="section-videos-title">Son Videolar</h2>
             </div>
             <div class="videos-grid" id="videos-grid"></div>
         </div>
@@ -189,8 +189,8 @@
     <section class="faq" id="sss">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">S.S.S</span>
-                <h2>Sıkça Sorulan Sorular</h2>
+                <span class="section-tag" id="section-faq-tag">S.S.S</span>
+                <h2 id="section-faq-title">Sıkça Sorulan Sorular</h2>
             </div>
             <div class="faq-list" id="faq-list"></div>
         </div>
@@ -199,9 +199,9 @@
     <section class="contact" id="iletisim">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">İletişim</span>
-                <h2>Bizimle İletişime Geçin</h2>
-                <p>Sorularınız veya paket satın alma talepleriniz için bize ulaşın</p>
+                <span class="section-tag" id="section-contact-tag">İletişim</span>
+                <h2 id="section-contact-title">Bizimle İletişime Geçin</h2>
+                <p id="section-contact-text">Sorularınız veya paket satın alma talepleriniz için bize ulaşın</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info" id="contact-info"></div>
@@ -228,26 +228,26 @@
                     <a href="#hero" class="logo" aria-label="İbrahim Ersoran">
                         <img src="assets/images/mark-on-dark.svg" alt="" width="40" height="40">
                         <span class="logo-type">
-                            <span class="logo-name">İbrahim Ersoran</span>
-                            <span class="logo-role">Personal Trainer</span>
+                            <span class="logo-name js-brand-name">İbrahim Ersoran</span>
+                            <span class="logo-role js-brand-role">Personal Trainer</span>
                         </span>
                     </a>
                     <p id="footer-description"></p>
                     <div class="footer-social" id="footer-social"></div>
                 </div>
                 <div class="footer-links">
-                    <h4>İbrahim Ersoran</h4>
+                    <h4 class="js-brand-name">İbrahim Ersoran</h4>
                     <p class="footer-phone" id="footer-phone"></p>
                     <ul>
-                        <li><a href="#paketler">Paketler</a></li>
-                        <li><a href="#degisimler">Değişimler</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#hakkimda">Hakkımda</a></li>
-                        <li><a href="#iletisim">İletişim</a></li>
+                        <li><a href="#paketler" data-nav="packages">Paketler</a></li>
+                        <li><a href="#degisimler" data-nav="transformations">Değişimler</a></li>
+                        <li><a href="#blog" data-nav="blog">Blog</a></li>
+                        <li><a href="#hakkimda" data-nav="about">Hakkımda</a></li>
+                        <li><a href="#iletisim" data-nav="contact">İletişim</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Önemli Bilgiler</h4>
+                    <h4 id="footer-legal-title">Önemli Bilgiler</h4>
                     <ul id="footer-legal"></ul>
                 </div>
             </div>
@@ -276,14 +276,14 @@
         </a>
         <a href="#paketler" class="mobile-cta-btn packages">
             <i class="fas fa-box"></i>
-            <span>Paketler</span>
+            <span data-nav="packages">Paketler</span>
         </a>
     </div>
 
     <script>
         window.SITE_API_BASE = 'https://sport-xmgh.onrender.com';
     </script>
-    <script type="module" src="js/app.js?v=20261024"></script>
+    <script type="module" src="js/app.js?v=20261024c"></script>
     <script>
     (function () {
         var form = document.getElementById('contact-form');

@@ -222,7 +222,59 @@ function renderConfig(c) {
                 `<li><a href="${l.url}">${l.text}</a></li>`
             ).join('');
         }
+        fillText('footer-legal-title', c.footer.linksTitle);
     }
+
+    renderPageCopy(c);
+}
+
+function fillText(id, value) {
+    if (value == null) return;
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+}
+
+function renderPageCopy(c) {
+    if (c.brand) {
+        if (c.brand.name != null) {
+            document.querySelectorAll('.js-brand-name').forEach(el => { el.textContent = c.brand.name; });
+        }
+        if (c.brand.role != null) {
+            document.querySelectorAll('.js-brand-role').forEach(el => { el.textContent = c.brand.role; });
+        }
+    }
+
+    if (Array.isArray(c.hero?.credentials)) {
+        const list = document.getElementById('hero-creds');
+        if (list) {
+            list.replaceChildren(...c.hero.credentials.map(item => String(item).trim()).filter(Boolean).map(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                return li;
+            }));
+        }
+    }
+    fillText('hero-cta-primary', c.hero?.primaryCta);
+    fillText('hero-cta-secondary', c.hero?.secondaryCta);
+
+    if (c.motto) {
+        fillText('motto-kicker', c.motto.kicker);
+        fillText('motto-script', c.motto.script);
+        fillText('motto-text', c.motto.text);
+    }
+
+    Object.entries(c.sections || {}).forEach(([key, section]) => {
+        if (!section) return;
+        fillText(`section-${key}-tag`, section.tag);
+        fillText(`section-${key}-title`, section.title);
+        fillText(`section-${key}-text`, section.text);
+        if (section.nav != null) {
+            document.querySelectorAll(`[data-nav="${key}"]`).forEach(el => { el.textContent = section.nav; });
+        }
+    });
+
+    const mail = document.querySelector('.mobile-cta-btn.mail');
+    if (mail && c.contact?.email) mail.href = `mailto:${c.contact.email}`;
 }
 
 function renderPackageCard(p) {
