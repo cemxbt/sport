@@ -37,22 +37,54 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
           cd deploy
-          
-          upload_file() {
-            local file="$1"
-            local remote_dir=$(dirname "$file")
-            
-            # Login directory is public_html; the domain serves its parent.
-            if [ "$remote_dir" != "." ]; then
-              curl -s --ftp-ssl -k --user "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" -Q "MKD ../$remote_dir" 2>/dev/null || true
-            fi
-            
-            curl -sS --ftp-ssl -k --fail --user "$FTP_USER:$FTP_PASS" -T "$file" "ftp://$FTP_HOST/../$file" --ftp-create-dirs
-            echo "Uploaded: $file"
-          }
-          
-          find . -type f | sed 's|^\./||' | while read file; do
-            upload_file "$file"
-          done
-          
-          echo "Deploy completed"
+          python3 - << 'PY'
+          import ftplib, io, os, time, urllib.request
+          from pathlib import Path
+
+          ftp = ftplib.FTP_TLS(timeout=60)
+          ftp.connect(os.environ["FTP_HOST"], 21)
+          ftp.auth()
+          ftp.login(os.environ["FTP_USER"], os.environ["FTP_PASS"])
+          ftp.prot_p()
+          ftp.set_pasv(True)
+          # Login directory is public_html. The domain serves its parent.
+          ftp.cwd("..")
+
+          def ensure(directory):
+              parts = []
+              for part in Path(directory).parts:
+                  parts.append(part)
+                  path = "/".join(parts)
+                  try:
+                      ftp.mkd(path)
+                  except ftplib.error_perm:
+                      pass
+
+          for path in sorted(Path(".").rglob("*")):
+              if not path.is_file():
+                  continue
+              rel = path.as_posix()
+              if path.parent.as_posix() != ".":
+                  ensure(path.parent.as_posix())
+              with path.open("rb") as handle:
+                  ftp.storbinary(f"STOR {rel}", handle)
+              print("Uploaded:", rel)
+
+          remote = io.BytesIO()
+          ftp.retrbinary("RETR data/config.json", remote.write)
+          ftp.quit()
+          local = Path("data/config.json").read_bytes()
+          if remote.getvalue() != local:
+              raise SystemExit("FTP config.json does not match the uploaded file")
+
+          live = None
+          for _ in range(8):
+              with urllib.request.urlopen("https://ibrahimersoran.com/data/config.json", timeout=30) as res:
+                  live = res.read()
+              if live == local:
+                  break
+              time.sleep(3)
+          if live != local:
+              raise SystemExit("Live config.json does not match the upload")
+          print("Live config.json matches")
+          PY

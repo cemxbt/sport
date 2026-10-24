@@ -1,7 +1,7 @@
 import { initCountdown } from './modules/countdown.js';
 import { initNavigation } from './modules/navigation.js';
 import { initAnimations } from './modules/animations.js';
-import { initDataRenderer } from './modules/dataRenderer.js';
+import { initDataRenderer } from './modules/dataRenderer.js?v=20261024';
 import { initCalculators } from './modules/calculators.js';
 
 const FORM_MODULE_V = '20260404';

@@ -1,15 +1,37 @@
 let dataFromAPI = false;
 
-const API_BATCH_TIMEOUT_MS = 90000;
+const API_TIMEOUT_MS = 12000;
 
-async function fetchJSONLocal(filename) {
-    return fetch(`./data/${filename}`).then(r => r.json());
+function fileTime(res) {
+    const raw = res && res.headers.get('last-modified');
+    const time = raw ? Date.parse(raw) : NaN;
+    return Number.isNaN(time) ? 0 : time;
 }
 
-async function fetchJSONFromAPI(base, filename, signal) {
-    const res = await fetch(`${base}/data/${filename}`, { cache: 'no-store', signal });
-    if (!res.ok) throw new Error(filename);
-    return res.json();
+async function fetchFresh(filename) {
+    const localPromise = fetch(`./data/${filename}`, { cache: 'no-store' })
+        .then(res => (res.ok ? res : null))
+        .catch(() => null);
+
+    let remotePromise = Promise.resolve(null);
+    if (window.SITE_API_BASE) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+        remotePromise = fetch(`${window.SITE_API_BASE}/data/${filename}`, {
+            cache: 'no-store',
+            signal: controller.signal
+        })
+            .then(res => (res.ok ? res : null))
+            .catch(() => null)
+            .finally(() => clearTimeout(timer));
+    }
+
+    const [localRes, remoteRes] = await Promise.all([localPromise, remotePromise]);
+    const useRemote = remoteRes && (!localRes || fileTime(remoteRes) > fileTime(localRes));
+    const pick = useRemote ? remoteRes : localRes;
+    if (!pick) throw new Error(filename);
+    if (useRemote) dataFromAPI = true;
+    return pick.json();
 }
 
 function resolveAssetURL(path) {
@@ -23,7 +45,6 @@ function resolveAssetURL(path) {
 
 export async function initDataRenderer() {
     dataFromAPI = false;
-    const apiBase = window.SITE_API_BASE;
     let config;
     let packages;
     let blog;
@@ -31,41 +52,14 @@ export async function initDataRenderer() {
     let faq;
     let videos;
 
-    if (apiBase) {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), API_BATCH_TIMEOUT_MS);
-        try {
-            [config, packages, blog, transformations, faq, videos] = await Promise.all([
-                fetchJSONFromAPI(apiBase, 'config.json', controller.signal),
-                fetchJSONFromAPI(apiBase, 'packages.json', controller.signal),
-                fetchJSONFromAPI(apiBase, 'blog.json', controller.signal),
-                fetchJSONFromAPI(apiBase, 'transformations.json', controller.signal),
-                fetchJSONFromAPI(apiBase, 'faq.json', controller.signal),
-                fetchJSONFromAPI(apiBase, 'videos.json', controller.signal)
-            ]);
-            clearTimeout(timeout);
-            dataFromAPI = true;
-        } catch {
-            clearTimeout(timeout);
-            [config, packages, blog, transformations, faq, videos] = await Promise.all([
-                fetchJSONLocal('config.json'),
-                fetchJSONLocal('packages.json'),
-                fetchJSONLocal('blog.json'),
-                fetchJSONLocal('transformations.json'),
-                fetchJSONLocal('faq.json'),
-                fetchJSONLocal('videos.json')
-            ]);
-        }
-    } else {
-        [config, packages, blog, transformations, faq, videos] = await Promise.all([
-            fetchJSONLocal('config.json'),
-            fetchJSONLocal('packages.json'),
-            fetchJSONLocal('blog.json'),
-            fetchJSONLocal('transformations.json'),
-            fetchJSONLocal('faq.json'),
-            fetchJSONLocal('videos.json')
-        ]);
-    }
+    [config, packages, blog, transformations, faq, videos] = await Promise.all([
+        fetchFresh('config.json'),
+        fetchFresh('packages.json'),
+        fetchFresh('blog.json'),
+        fetchFresh('transformations.json'),
+        fetchFresh('faq.json'),
+        fetchFresh('videos.json')
+    ]);
 
     renderConfig(config);
     renderPackages(packages);
