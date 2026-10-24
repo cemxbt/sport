@@ -2,10 +2,10 @@
   "regular": [
     {
       "id": 1,
-      "name": "6 Aylık Full Paket - Paket",
-      "oldPrice": "68800 ₺",
-      "price": "3950 ₺",
-      "discount": "%40 İndirim",
+      "name": "6 Aylık Full Paket ",
+      "oldPrice": "8500 ₺",
+      "price": "6800₺",
+      "discount": "%20 İndirim",
       "featured": true,
       "badge": "Popüler",
       "features": [
