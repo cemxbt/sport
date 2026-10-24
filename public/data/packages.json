@@ -145,8 +145,8 @@
     },
     {
       "name": "Antrenman+Beslenme Programı",
-      "price": "4000",
-      "oldPrice": "5000",
+      "price": "4000 ₺",
+      "oldPrice": "5000₺",
       "discount": "10",
       "badge": null,
       "featured": true,
