@@ -38,9 +38,9 @@
     {
       "id": 2,
       "name": "3 Aylık Full Paket",
-      "oldPrice": "4200 ₺",
-      "price": "2950 ₺",
-      "discount": "%30 İndirim",
+      "oldPrice": "5500 ₺",
+      "price": "4500₺",
+      "discount": "%20 İndirim",
       "featured": false,
       "badge": null,
       "features": [
