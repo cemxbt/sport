@@ -140,9 +140,9 @@
       "id": 5,
       "name": "Antrenman Programı",
       "oldPrice": null,
-      "price": "1950 ₺",
+      "price": "2500 ₺",
       "discount": null,
-      "featured": false,
+      "featured": true,
       "badge": null,
       "features": [
         {
