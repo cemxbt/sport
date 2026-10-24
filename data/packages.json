@@ -106,37 +106,6 @@
       ]
     },
     {
-      "id": 4,
-      "name": "6 Haftalık Full Paket",
-      "oldPrice": null,
-      "price": "2550 ₺",
-      "discount": null,
-      "featured": false,
-      "badge": null,
-      "features": [
-        {
-          "icon": "fas fa-check",
-          "text": "Kişiye özel antrenman programı"
-        },
-        {
-          "icon": "fas fa-check",
-          "text": "Kişiye özel beslenme programı"
-        },
-        {
-          "icon": "fas fa-check",
-          "text": "Kardiyo Planlaması"
-        },
-        {
-          "icon": "fas fa-check",
-          "text": "Supplement Kombinasyonu"
-        },
-        {
-          "icon": "fas fa-check",
-          "text": "Sınırsız iletişim, soru-cevap"
-        }
-      ]
-    },
-    {
       "id": 5,
       "name": "Antrenman Programı",
       "oldPrice": null,
