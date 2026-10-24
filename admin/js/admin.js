@@ -6,15 +6,30 @@ function handleResponse(res) {
     return res.json();
 }
 
+const API_ORIGIN = /onrender\.com$/.test(location.hostname) || location.hostname === 'localhost'
+    ? ''
+    : 'https://sport-xmgh.onrender.com';
+
+function apiUrl(path) {
+    return API_ORIGIN + path;
+}
+
+function authHeaders(headers) {
+    const next = Object.assign({}, headers);
+    const token = sessionStorage.getItem('admin_token');
+    if (token) next.Authorization = 'Bearer ' + token;
+    return next;
+}
+
 const API = {
-    async get(url) { return handleResponse(await fetch(url)); },
-    async post(url, data) { return handleResponse(await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })); },
-    async put(url, data) { return handleResponse(await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })); },
-    async del(url) { return handleResponse(await fetch(url, { method: 'DELETE' })); },
+    async get(url) { return handleResponse(await fetch(apiUrl(url), { headers: authHeaders(), credentials: 'include' })); },
+    async post(url, data) { return handleResponse(await fetch(apiUrl(url), { method: 'POST', headers: authHeaders({ 'Content-Type': 'application/json' }), credentials: 'include', body: JSON.stringify(data) })); },
+    async put(url, data) { return handleResponse(await fetch(apiUrl(url), { method: 'PUT', headers: authHeaders({ 'Content-Type': 'application/json' }), credentials: 'include', body: JSON.stringify(data) })); },
+    async del(url) { return handleResponse(await fetch(apiUrl(url), { method: 'DELETE', headers: authHeaders(), credentials: 'include' })); },
     async upload(file) {
         const fd = new FormData();
         fd.append('image', file);
-        return handleResponse(await fetch('/api/upload', { method: 'POST', body: fd }));
+        return handleResponse(await fetch(apiUrl('/api/upload'), { method: 'POST', headers: authHeaders(), credentials: 'include', body: fd }));
     }
 };
 
@@ -698,7 +713,8 @@ document.getElementById('form-footer').addEventListener('submit', async e => {
 });
 
 document.getElementById('btn-logout').addEventListener('click', async () => {
-    await fetch('/api/auth/logout', { method: 'POST' });
+    await fetch(apiUrl('/api/auth/logout'), { method: 'POST', headers: authHeaders(), credentials: 'include' });
+    sessionStorage.removeItem('admin_token');
     window.location.href = '/admin/login.html';
 });
 
@@ -714,14 +730,16 @@ document.getElementById('form-change-password').addEventListener('submit', async
     }
 
     try {
-        const res = await fetch('/api/auth/change-password', {
+        const res = await fetch(apiUrl('/api/auth/change-password'), {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: authHeaders({ 'Content-Type': 'application/json' }),
+            credentials: 'include',
             body: JSON.stringify({ currentPassword: f.current_password.value, newPassword: newPass })
         });
         const data = await res.json();
 
         if (res.ok && data.success) {
+            sessionStorage.removeItem('admin_token');
             toast('Sifre degistirildi. Yeniden giris yapiliyor...');
             setTimeout(() => { window.location.href = '/admin/login.html'; }, 1500);
         } else {
@@ -741,7 +759,7 @@ document.getElementById('trainer-photo-input').addEventListener('change', async 
     try {
         const fd = new FormData();
         fd.append('image', this.files[0]);
-        const res = await fetch('/api/upload-trainer', { method: 'POST', body: fd });
+        const res = await fetch(apiUrl('/api/upload-trainer'), { method: 'POST', headers: authHeaders(), credentials: 'include', body: fd });
         const data = await handleResponse(res);
         if (data.success) {
             document.getElementById('trainer-preview').src = data.url;
@@ -757,9 +775,10 @@ document.getElementById('trainer-photo-input').addEventListener('change', async 
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const res = await fetch('/api/auth/check');
+        const res = await fetch(apiUrl('/api/auth/check'), { headers: authHeaders(), credentials: 'include' });
         const data = await res.json();
         if (!data.authenticated) {
+            sessionStorage.removeItem('admin_token');
             window.location.href = '/admin/login.html';
             return;
         }

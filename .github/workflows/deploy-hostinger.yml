@@ -7,6 +7,7 @@ on:
     paths:
       - 'public/**'
       - 'data/**'
+      - 'admin/**'
 
 concurrency:
   group: hostinger-deploy
@@ -24,7 +25,8 @@ jobs:
           cp -r public/* deploy/
           cp public/.htaccess deploy/ 2>/dev/null || true
           cp public/.nojekyll deploy/ 2>/dev/null || true
-          mkdir -p deploy/data
+          mkdir -p deploy/admin deploy/data
+          cp -r admin/. deploy/admin/
           cp data/*.json deploy/data/ 2>/dev/null || true
           rm -f deploy/data/auth.json
 

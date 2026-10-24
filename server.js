@@ -157,7 +157,7 @@ app.use((req, res, next) => {
     if (ALLOWED_ORIGINS.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
     }
     if (req.method === 'OPTIONS') return res.sendStatus(204);
@@ -168,6 +168,10 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use('/data', (req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+});
 app.use('/data', express.static(DATA_DIR));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -225,9 +229,11 @@ async function syncToGitHub(filename, content) {
                 `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}?ref=main`,
                 { headers }
             );
-            const fileData = await getRes.json();
+            const fileData = getRes.ok ? await getRes.json() : {};
+            const current = String(fileData.content || '').replace(/\n/g, '');
+            if (current && current === encoded) continue;
 
-            await fetch(
+            const putRes = await fetch(
                 `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
                 {
                     method: 'PUT',
@@ -240,7 +246,13 @@ async function syncToGitHub(filename, content) {
                     })
                 }
             );
-        } catch (_) {}
+            if (!putRes.ok) {
+                const errText = await putRes.text();
+                console.error('GitHub sync failed', filePath, putRes.status, errText.slice(0, 300));
+            }
+        } catch (err) {
+            console.error('GitHub sync failed', filePath, err.message);
+        }
     }
 }
 
@@ -324,8 +336,14 @@ function clearFailedAttempts(auth, ip) {
     }
 }
 
+function sessionToken(req) {
+    const header = req.headers.authorization || '';
+    if (header.startsWith('Bearer ')) return header.slice(7).trim();
+    return req.cookies?.admin_session || '';
+}
+
 function requireAuth(req, res, next) {
-    const token = req.cookies?.admin_session;
+    const token = sessionToken(req);
     if (!token) return res.status(401).json({ error: 'Oturum gerekli' });
 
     const auth = readAuth();
@@ -380,11 +398,11 @@ app.post('/api/auth/login', async (req, res) => {
         path: '/'
     });
 
-    res.json({ success: true });
+    res.json({ success: true, token });
 });
 
 app.post('/api/auth/logout', (req, res) => {
-    const token = req.cookies?.admin_session;
+    const token = sessionToken(req);
     if (token) {
         const auth = readAuth();
         auth.sessions = (auth.sessions || []).filter(s => s.token !== token);
@@ -395,7 +413,7 @@ app.post('/api/auth/logout', (req, res) => {
 });
 
 app.get('/api/auth/check', (req, res) => {
-    const token = req.cookies?.admin_session;
+    const token = sessionToken(req);
     if (!token) return res.json({ authenticated: false });
 
     const auth = readAuth();
@@ -520,7 +538,7 @@ app.use('/admin', (req, res, next) => {
         return next();
     }
 
-    const token = req.cookies?.admin_session;
+    const token = sessionToken(req);
     if (!token) return res.redirect('/admin/login.html');
 
     const auth = readAuth();

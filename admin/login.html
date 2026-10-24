@@ -155,15 +155,17 @@
         errorEl.classList.remove('visible');
 
         try {
-            const res = await fetch('/api/auth/login', {
+            const res = await fetch(apiUrl('/api/auth/login'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
                 body: JSON.stringify({ password })
             });
 
             const data = await res.json();
 
             if (res.ok && data.success) {
+                if (data.token) sessionStorage.setItem('admin_token', data.token);
                 window.location.href = '/admin/';
                 return;
             }
@@ -188,11 +190,24 @@
         btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Giriş Yap';
     });
 
+    const API_ORIGIN = /onrender\.com$/.test(location.hostname) || location.hostname === 'localhost'
+        ? ''
+        : 'https://sport-xmgh.onrender.com';
+
+    function apiUrl(path) {
+        return API_ORIGIN + path;
+    }
+
     (async () => {
         try {
-            const res = await fetch('/api/auth/check');
+            const token = sessionStorage.getItem('admin_token');
+            const res = await fetch(apiUrl('/api/auth/check'), {
+                headers: token ? { Authorization: 'Bearer ' + token } : {},
+                credentials: 'include'
+            });
             const data = await res.json();
             if (data.authenticated) window.location.href = '/admin/';
+            else sessionStorage.removeItem('admin_token');
         } catch {}
     })();
     </script>
