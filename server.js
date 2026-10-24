@@ -168,6 +168,10 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use('/api', (req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+});
 app.use('/data', (req, res, next) => {
     res.setHeader('Cache-Control', 'no-store');
     next();
@@ -195,9 +199,41 @@ const upload = multer({
     }
 });
 
+const CONTENT_FILES = ['config.json', 'packages.json', 'blog.json', 'faq.json', 'videos.json', 'transformations.json'];
+
 function readData(filename) {
     const filepath = path.join(DATA_DIR, filename);
     return JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+}
+
+function githubHeaders() {
+    return {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json'
+    };
+}
+
+async function pullContentFromGitHub() {
+    if (!GITHUB_TOKEN) return;
+    for (const filename of CONTENT_FILES) {
+        try {
+            const res = await fetch(
+                `https://api.github.com/repos/${GITHUB_REPO}/contents/data/${filename}?ref=main`,
+                { headers: githubHeaders() }
+            );
+            if (!res.ok) {
+                console.error('GitHub pull failed', filename, res.status);
+                continue;
+            }
+            const file = await res.json();
+            const json = Buffer.from(String(file.content || '').replace(/\n/g, ''), 'base64').toString('utf8');
+            JSON.parse(json);
+            fs.writeFileSync(path.join(DATA_DIR, filename), json, 'utf8');
+            try { fs.writeFileSync(path.join(PUBLIC_DATA_DIR, filename), json, 'utf8'); } catch (_) {}
+        } catch (err) {
+            console.error('GitHub pull failed', filename, err.message);
+        }
+    }
 }
 
 function writeData(filename, data) {
@@ -208,16 +244,14 @@ function writeData(filename, data) {
     const publicCopy = path.join(PUBLIC_DATA_DIR, filename);
     try { fs.writeFileSync(publicCopy, json, 'utf-8'); } catch (_) {}
 
-    if (GITHUB_TOKEN && filename !== 'auth.json') {
-        syncToGitHub(filename, json).catch(() => {});
-    }
+    if (GITHUB_TOKEN && filename !== 'auth.json') return syncToGitHub(filename, json);
+    return Promise.resolve();
 }
 
 async function syncToGitHub(filename, content) {
     const headers = {
-        Authorization: `token ${GITHUB_TOKEN}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/vnd.github.v3+json'
+        ...githubHeaders(),
+        'Content-Type': 'application/json'
     };
 
     const paths = [`data/${filename}`, `public/data/${filename}`];
@@ -557,8 +591,8 @@ app.get('/api/config', (req, res) => {
     res.json(readData('config.json'));
 });
 
-app.put('/api/config', requireAuth, (req, res) => {
-    writeData('config.json', req.body);
+app.put('/api/config', requireAuth, async (req, res) => {
+    await writeData('config.json', req.body);
     res.json({ success: true });
 });
 
@@ -566,8 +600,8 @@ app.get('/api/packages', (req, res) => {
     res.json(readData('packages.json'));
 });
 
-app.put('/api/packages', requireAuth, (req, res) => {
-    writeData('packages.json', req.body);
+app.put('/api/packages', requireAuth, async (req, res) => {
+    await writeData('packages.json', req.body);
     res.json({ success: true });
 });
 
@@ -575,27 +609,27 @@ app.get('/api/blog', (req, res) => {
     res.json(readData('blog.json'));
 });
 
-app.post('/api/blog', requireAuth, (req, res) => {
+app.post('/api/blog', requireAuth, async (req, res) => {
     const items = readData('blog.json');
     const newItem = { id: getNextId(items), ...req.body };
     items.unshift(newItem);
-    writeData('blog.json', items);
+    await writeData('blog.json', items);
     res.json(newItem);
 });
 
-app.put('/api/blog/:id', requireAuth, (req, res) => {
+app.put('/api/blog/:id', requireAuth, async (req, res) => {
     const items = readData('blog.json');
     const idx = items.findIndex(i => i.id === parseInt(req.params.id));
     if (idx === -1) return res.status(404).json({ error: 'Bulunamadı' });
     items[idx] = { ...items[idx], ...req.body };
-    writeData('blog.json', items);
+    await writeData('blog.json', items);
     res.json(items[idx]);
 });
 
-app.delete('/api/blog/:id', requireAuth, (req, res) => {
+app.delete('/api/blog/:id', requireAuth, async (req, res) => {
     let items = readData('blog.json');
     items = items.filter(i => i.id !== parseInt(req.params.id));
-    writeData('blog.json', items);
+    await writeData('blog.json', items);
     res.json({ success: true });
 });
 
@@ -603,27 +637,27 @@ app.get('/api/transformations', (req, res) => {
     res.json(readData('transformations.json'));
 });
 
-app.post('/api/transformations', requireAuth, (req, res) => {
+app.post('/api/transformations', requireAuth, async (req, res) => {
     const items = readData('transformations.json');
     const newItem = { id: getNextId(items), ...req.body };
     items.push(newItem);
-    writeData('transformations.json', items);
+    await writeData('transformations.json', items);
     res.json(newItem);
 });
 
-app.put('/api/transformations/:id', requireAuth, (req, res) => {
+app.put('/api/transformations/:id', requireAuth, async (req, res) => {
     const items = readData('transformations.json');
     const idx = items.findIndex(i => i.id === parseInt(req.params.id));
     if (idx === -1) return res.status(404).json({ error: 'Bulunamadı' });
     items[idx] = { ...items[idx], ...req.body };
-    writeData('transformations.json', items);
+    await writeData('transformations.json', items);
     res.json(items[idx]);
 });
 
-app.delete('/api/transformations/:id', requireAuth, (req, res) => {
+app.delete('/api/transformations/:id', requireAuth, async (req, res) => {
     let items = readData('transformations.json');
     items = items.filter(i => i.id !== parseInt(req.params.id));
-    writeData('transformations.json', items);
+    await writeData('transformations.json', items);
     res.json({ success: true });
 });
 
@@ -631,27 +665,27 @@ app.get('/api/faq', (req, res) => {
     res.json(readData('faq.json'));
 });
 
-app.post('/api/faq', requireAuth, (req, res) => {
+app.post('/api/faq', requireAuth, async (req, res) => {
     const items = readData('faq.json');
     const newItem = { id: getNextId(items), ...req.body };
     items.push(newItem);
-    writeData('faq.json', items);
+    await writeData('faq.json', items);
     res.json(newItem);
 });
 
-app.put('/api/faq/:id', requireAuth, (req, res) => {
+app.put('/api/faq/:id', requireAuth, async (req, res) => {
     const items = readData('faq.json');
     const idx = items.findIndex(i => i.id === parseInt(req.params.id));
     if (idx === -1) return res.status(404).json({ error: 'Bulunamadı' });
     items[idx] = { ...items[idx], ...req.body };
-    writeData('faq.json', items);
+    await writeData('faq.json', items);
     res.json(items[idx]);
 });
 
-app.delete('/api/faq/:id', requireAuth, (req, res) => {
+app.delete('/api/faq/:id', requireAuth, async (req, res) => {
     let items = readData('faq.json');
     items = items.filter(i => i.id !== parseInt(req.params.id));
-    writeData('faq.json', items);
+    await writeData('faq.json', items);
     res.json({ success: true });
 });
 
@@ -659,27 +693,27 @@ app.get('/api/videos', (req, res) => {
     res.json(readData('videos.json'));
 });
 
-app.post('/api/videos', requireAuth, (req, res) => {
+app.post('/api/videos', requireAuth, async (req, res) => {
     const items = readData('videos.json');
     const newItem = { id: getNextId(items), ...req.body };
     items.unshift(newItem);
-    writeData('videos.json', items);
+    await writeData('videos.json', items);
     res.json(newItem);
 });
 
-app.put('/api/videos/:id', requireAuth, (req, res) => {
+app.put('/api/videos/:id', requireAuth, async (req, res) => {
     const items = readData('videos.json');
     const idx = items.findIndex(i => i.id === parseInt(req.params.id));
     if (idx === -1) return res.status(404).json({ error: 'Bulunamadı' });
     items[idx] = { ...items[idx], ...req.body };
-    writeData('videos.json', items);
+    await writeData('videos.json', items);
     res.json(items[idx]);
 });
 
-app.delete('/api/videos/:id', requireAuth, (req, res) => {
+app.delete('/api/videos/:id', requireAuth, async (req, res) => {
     let items = readData('videos.json');
     items = items.filter(i => i.id !== parseInt(req.params.id));
-    writeData('videos.json', items);
+    await writeData('videos.json', items);
     res.json({ success: true });
 });
 
@@ -706,7 +740,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Site: http://localhost:${PORT}`);
-    console.log(`Admin Panel: http://localhost:${PORT}/admin`);
+pullContentFromGitHub().finally(() => {
+    app.listen(PORT, () => {
+        console.log(`Site: http://localhost:${PORT}`);
+        console.log(`Admin Panel: http://localhost:${PORT}/admin`);
+    });
 });
