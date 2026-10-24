@@ -185,33 +185,6 @@
       ]
     },
     {
-      "id": 8,
-      "name": "İbrahim Ersoran'la Görüntülü Görüşme (1 Seans)",
-      "oldPrice": "3490 ₺",
-      "price": "2490 ₺",
-      "discount": "%29 İndirim",
-      "featured": false,
-      "badge": "Yeni",
-      "features": [
-        {
-          "icon": "fas fa-video",
-          "text": "İbrahim Ersoran ile Görüntülü Görüşme"
-        },
-        {
-          "icon": "fas fa-check",
-          "text": "Canlı İletişim, Görüntülü Takip"
-        },
-        {
-          "icon": "fas fa-check",
-          "text": "Bire bir vücut gelişimi takibi"
-        },
-        {
-          "icon": "fas fa-check",
-          "text": "Supplement Planlaması"
-        }
-      ]
-    },
-    {
       "id": 9,
       "name": "Diyetisyen Görüşmesi (1 Seans)",
       "oldPrice": "2490 ₺",
